@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   instructions.c                                     :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: toramo <toramo.student@hive.fi>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/11/27 14:36:26 by toramo            #+#    #+#             */
+/*   Updated: 2023/11/27 14:37:01 by toramo           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "push_swap.h"
 
 int	arrsize(t_stack **a)
@@ -12,7 +24,7 @@ int	arrsize(t_stack **a)
 
 void	rotate_a(t_stack **a, t_stack **b, char **inst, int times)
 {
-	t_stack *temp;
+	t_stack	*temp;
 	int		i;
 	int		size;
 
@@ -34,7 +46,7 @@ void	rotate_a(t_stack **a, t_stack **b, char **inst, int times)
 
 void	rotate_b(t_stack **a, t_stack **b, char **inst, int times)
 {
-	t_stack *temp;
+	t_stack	*temp;
 	int		i;
 	int		size;
 
@@ -56,7 +68,7 @@ void	rotate_b(t_stack **a, t_stack **b, char **inst, int times)
 
 void	rrotate_a(t_stack **a, t_stack **b, char **inst, int times)
 {
-	t_stack *temp;
+	t_stack	*temp;
 	int		i;
 	int		size;
 
@@ -78,7 +90,7 @@ void	rrotate_a(t_stack **a, t_stack **b, char **inst, int times)
 
 void	rrotate_b(t_stack **a, t_stack **b, char **inst, int times)
 {
-	t_stack *temp;
+	t_stack	*temp;
 	int		i;
 	int		size;
 
