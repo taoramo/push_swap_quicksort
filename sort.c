@@ -46,9 +46,7 @@ void	pivotpush_b(t_stack **a, t_stack **b, char **inst, int i)
 void	initsort_a(t_stack **a, t_stack **b, char **inst, int pnum)
 {
 	int	i;
-	int	pivot;
 
-	pivot = arrsize(a) / 4;
 	i = 0;
 	while (a[i])
 	{
@@ -63,6 +61,24 @@ void	initsort_a(t_stack **a, t_stack **b, char **inst, int pnum)
 			swap_a(a, b, inst);
 		else
 			rotate_a(a, b, inst, 1);
+	}
+}
+
+void	partition_init(t_stack **a, t_stack **b, int *pnum)
+{
+	int	size;
+	int	i;
+
+	i = 0;
+	size = arrsize(a);
+	while (i < size)
+	{
+		if (a[i]->n <= size / 4)
+			a[i]->pnum = *pnum + 1;
+		if (a[i]->n > size / 4 && a[i]->n <= size / 2)
+			a[i]->pnum = pnum + 2;
+		*pnum = *pnum + 2;
+		i++;
 	}
 }
 
