@@ -6,7 +6,7 @@
 /*   By: toramo <toramo.student@hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/27 10:04:57 by toramo            #+#    #+#             */
-/*   Updated: 2023/11/27 16:07:26 by toramo           ###   ########.fr       */
+/*   Updated: 2023/11/27 16:27:39 by toramo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,24 +17,24 @@ void	pivotpush_b(t_stack **a, t_stack **b, char **inst, int pnum)
 	while (!(p_size(a, b, pnum - 1) == 0 && p_size(a, b, pnum) == 0)
 		&& arrsize(a))
 	{
+		if (a[0]->pnum == 0)
+			rotate_a(a, b, inst, 1);
 		if (a[0]->pnum == pnum - 1 && (b[0] == 0 || b[0]->pnum == pnum - 1))
 			push_b(a, b, inst);
-		else if (a[0]->pnum == pnum - 1 && (b[0]->pnum == pnum)
-			&& arrsize(b) > 1)
+		else if (a[0]->pnum == pnum - 1 && (b[0]->pnum == pnum))
 		{
-			rrotate_b(a, b, inst, 1);
+			if (arrsize(b) > 2)
+				rrotate_b(a, b, inst, 1);
 			push_b(a, b, inst);
 		}
 		else if (a[0]->pnum == pnum && (b[0] == 0 || b[0]->pnum == pnum))
 			push_b(a, b, inst);
-		else if (a[0]->pnum == pnum && (b[0]->pnum == pnum - 1)
-			&& arrsize(b) > 1)
+		else if (a[0]->pnum == pnum && (b[0]->pnum == pnum - 1))
 		{
-			rotate_b(a, b, inst, 1);
+			if (arrsize(b) > 2)
+				rotate_b(a, b, inst, 1);
 			push_b(a, b, inst);
 		}
-		else
-			rotate_a(a, b, inst, 1);
 	}
 	reset_rotation_b(a, b, inst);
 }
@@ -108,7 +108,7 @@ void	phase_one(t_stack **a, t_stack **b, char **inst)
 	int	pnum;
 
 	pnum = 0;
-	sorted_run(a);
+//	sorted_run(a);
 	while (arrsize(a))
 	{
 		if (arrsize(a) > 7)
