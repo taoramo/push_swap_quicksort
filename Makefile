@@ -1,7 +1,7 @@
 CC = cc
 CFLAGS = -g -c -Wall -Wextra -Werror
 NAME = push_swap
-SRCS = push_swap_utils.c instructions.c instructions2.c push_swap.c  sort.c
+SRCS = endgame.c push_swap_utils.c instructions.c instructions2.c push_swap.c  sort.c pnum_utils.c print_arrays.c
 INCLUDES = ft_printf.h libft.h push_swap.h
 LIBFT = ./libft/libft.a
 BONUSNAME = checker

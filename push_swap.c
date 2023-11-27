@@ -59,7 +59,7 @@ void	free_everything(t_stack **a, t_stack **b, char **inst)
 		i++;
 	}
 	i = 0;
-	while (b[i] && b)
+	while (b[i + 1] && b)
 	{
 		free(b[i]);
 		i++;
@@ -119,5 +119,5 @@ int	main(int argc, char **argv)
 	inst = ft_calloc(sizeof(char *), argc * argc);
 	if (!a || !b || !inst)
 		free_everything(a, b, inst);
-	phase_one(a, b, inst, argc);
+	phase_one(a, b, inst);
 }

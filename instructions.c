@@ -20,10 +20,10 @@ void	rotate_a(t_stack **a, t_stack **b, char **inst, int times)
 	while (times && a[0])
 	{
 		temp = a[0];
-		i = 1;
-		while (i <= size - 1)
+		i = 0;
+		while (i + 1 < size)
 		{
-			a[i - 1] = a[i];
+			a[i] = a[i + 1];
 			i++;
 		}
 		a[size - 1] = temp;
@@ -42,10 +42,10 @@ void	rotate_b(t_stack **a, t_stack **b, char **inst, int times)
 	while (times && b[0])
 	{
 		temp = b[0];
-		i = 1;
-		while (i <= size - 1)
+		i = 0;
+		while (i + 1 < size)
 		{
-			b[i - 1] = b[i];
+			b[i] = b[i + 1];
 			i++;
 		}
 		b[size - 1] = temp;

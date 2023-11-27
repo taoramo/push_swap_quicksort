@@ -1,70 +1,41 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   sort.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: toramo <toramo.student@hive.fi>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/11/27 10:04:57 by toramo            #+#    #+#             */
+/*   Updated: 2023/11/27 11:46:46 by toramo           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "push_swap.h"
 
-void	sort_three(t_stack **a, t_stack **b, char **inst, int argc)
+void	pivotpush_b(t_stack **a, t_stack **b, char **inst, int pnum)
 {
-	if (a[0]->n == argc - 3 && a[1]->n == argc - 2 && a[2]->n == argc - 1)
-		return ;
-	else if (a[0]->n == argc - 3 && a[1]->n == argc - 1 && a[2]->n == argc - 2)
+	while (!(p_size(a, pnum - 1) == 0 && p_size(a, pnum) == 0))
 	{
-		swap_a(a, b, inst);
-		rotate_a(a, b, inst, 1);
-	}
-	else if (a[0]->n == argc - 2 && a[1]->n == argc - 3 && a[2]->n == argc - 1)
-		swap_a(a, b, inst);
-	else if (a[0]->n == argc - 2 && a[1]->n == argc - 1 && a[2]->n == argc - 3)
-		rrotate_a(a, b, inst, 1);
-	else if (a[0]->n == argc - 1 && a[1]->n == argc - 3 && a[2]->n == argc - 2)
-		rotate_a(a, b, inst, 1);
-	else if (a[0]->n == argc - 1 && a[1]->n == argc - 2 && a[2]->n == argc - 3)
-	{
-		swap_a(a, b, inst);
-		rrotate_a(a, b, inst, 1);
-	}
-}
-
-void	pivotpush_b(t_stack **a, t_stack **b, char **inst, int i)
-{
-	int	pivot;
-
-	pivot = a[i]->pivot;
-	if (a[i]->n <= pivot && (b[0]->n < pivot || b[0] == 0))
-		push_b(a, b, inst);
-	if (a[i]->n <= pivot && (b[0]->n >= pivot || b[0] == 0))
-	{
-		rrotate_b(a, b, inst, 1);
-		push_b(a, b, inst);
-	}
-	if (a[i]->n > pivot && (b[0]->n >= pivot || b[0] == 0))
-		push_b(a, b, inst);
-	if (a[i]->n > pivot && (b[0]->n < pivot))
-	{
-		rotate_b(a, b, inst, 1);
-		push_b(a, b, inst);
-	}
-}
-
-void	initsort_a(t_stack **a, t_stack **b, char **inst, int pnum)
-{
-	int	i;
-
-	i = 0;
-	while (a[i])
-	{
-		if (a[i]->n <= pivot * 2)
+		if (a[0]->pnum == pnum - 1 && (b[0] == 0 || b[0]->pnum == pnum - 1))
+			push_b(a, b, inst);
+		else if (a[0]->pnum == pnum - 1 && (b[0]->pnum == pnum))
 		{
-			a[i]->pivot = pivot;
-			pivotpush_b(a, b, inst, i);
-			a[i]->pnum = pnum;
+			rrotate_b(a, b, inst, 1);
+			push_b(a, b, inst);
 		}
-		else if (a[i]->n > pivot && a[i + 1]->n > pivot
-			&& a[i]->n > a[i + 1]->n)
-			swap_a(a, b, inst);
+		else if (a[0]->pnum == pnum && (b[0] == 0 || b[0]->pnum == pnum))
+			push_b(a, b, inst);
+		else if (a[0]->pnum == pnum && (b[0]->pnum == pnum - 1))
+		{
+			rotate_b(a, b, inst, 1);
+			push_b(a, b, inst);
+		}
 		else
 			rotate_a(a, b, inst, 1);
 	}
 }
 
-void	partition_init(t_stack **a, t_stack **b, int *pnum)
+void	partition(t_stack **a, int *pnum)
 {
 	int	size;
 	int	i;
@@ -73,21 +44,65 @@ void	partition_init(t_stack **a, t_stack **b, int *pnum)
 	size = arrsize(a);
 	while (i < size)
 	{
-		if (a[i]->n <= size / 4)
+		if (a[i]->n <= size / 2 && a[i]->pnum >= 0)
 			a[i]->pnum = *pnum + 1;
-		if (a[i]->n > size / 4 && a[i]->n <= size / 2)
-			a[i]->pnum = pnum + 2;
-		*pnum = *pnum + 2;
+		if (a[i]->n > size / 2 && a[i]->pnum >= 0)
+			a[i]->pnum = *pnum + 2;
 		i++;
+	}
+	*pnum = *pnum + 2;
+}
+
+void	partition_init(t_stack **a, int *pnum)
+{
+	int	size;
+	int	i;
+
+	i = 0;
+	size = arrsize(a);
+	while (i < size)
+	{
+		if (a[i]->n <= size / 4 && a[i]->pnum >= 0)
+			a[i]->pnum = *pnum + 1;
+		if (a[i]->n > size / 4 && a[i]->n <= size / 2 && a[i]->pnum >= 0)
+			a[i]->pnum = *pnum + 2;
+		i++;
+	}
+	*pnum = *pnum + 2;
+}
+
+void	sorted_run(t_stack **a)
+{
+	int	i;
+
+	i = 0;
+	while (a[i]->n != 1 && i + 1 < arrsize(a))
+		i++;
+	if (a[i + 1] != 0)
+		if (a[i + 1]->n == a[i]->n + 1)
+			a[i]->pnum = -1;
+	if (a[i + 1] != 0)
+	{
+		while ((a[i + 1]->n == a[i]->n + 1) && (i + 2 < arrsize(a)))
+		{
+			a[i + 1]->pnum = -1;
+			i++;
+		}
 	}
 }
 
-void	phase_one(t_stack **a, t_stack **b, char **inst, int argc)
+void	phase_one(t_stack **a, t_stack **b, char **inst)
 {
 	int	pnum;
 
-	pnum = 1;
-	while (arrsize(a) > 3 && !is_sorted(a))
-		initsort_a(a, b, inst, pnum);
-	sort_three(a, b, inst, argc);
+	pnum = 0;
+	sorted_run(a);
+	while (arrsize(a) > 6 && !is_sorted(a))
+	{
+		partition_init(a, &pnum);
+		pivotpush_b(a, b, inst, pnum);
+	}
+	partition(a, &pnum);
+	pivotpush_b(a, b, inst, pnum);
+	endgame(a, b, inst);
 }
