@@ -6,7 +6,7 @@
 /*   By: toramo <toramo.student@hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/27 10:04:57 by toramo            #+#    #+#             */
-/*   Updated: 2023/11/27 16:27:39 by toramo           ###   ########.fr       */
+/*   Updated: 2023/11/27 17:12:34 by toramo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,7 @@
 
 void	pivotpush_b(t_stack **a, t_stack **b, char **inst, int pnum)
 {
-	while (!(p_size(a, b, pnum - 1) == 0 && p_size(a, b, pnum) == 0)
-		&& arrsize(a))
+	while (!(p_size(a, pnum - 1) == 0 && p_size(a, pnum) == 0))
 	{
 		if (a[0]->pnum == 0)
 			rotate_a(a, b, inst, 1);
@@ -41,17 +40,15 @@ void	pivotpush_b(t_stack **a, t_stack **b, char **inst, int pnum)
 
 void	partition(t_stack **a, int *pnum)
 {
-	int	size;
 	int	i;
 
 	i = 0;
-	size = arrsize(a);
-	while (i < size)
+	while (i < arrsize(a))
 	{
-		if (a[i]->n <= size / 2 && a[i]->pnum >= 0)
-			a[i]->pnum = *pnum + 1;
-		if (a[i]->n > size / 2 && a[i]->pnum >= 0)
-			a[i]->pnum = *pnum + 2;
+		if (a[i]->n <= find_largest(a) / 2)
+			a[i]->pnum = *pnum - 1;
+		if (a[i]->n > find_largest(a) / 2)
+			a[i]->pnum = *pnum;
 		i++;
 	}
 	*pnum = *pnum + 2;
@@ -63,15 +60,15 @@ void	partition_init(t_stack **a, int *pnum)
 	int	i;
 
 	i = 0;
-	size = arrsize(a);
-	while (i < size)
+	while (i < arrsize(a))
 	{
-		if (a[i]->n <= size / 4 && a[i]->pnum >= 0)
-			a[i]->pnum = *pnum + 1;
-		if (a[i]->n > size / 4 && a[i]->n <= size / 2 && a[i]->pnum >= 0)
-			a[i]->pnum = *pnum + 2;
+		if (a[i]->n <= find_largest(a) / 4)
+			a[i]->pnum = *pnum - 1;
+		if (a[i]->n > find_largest(a) / 4 && a[i]->n <= find_largest(a))
+			a[i]->pnum = *pnum;
 		i++;
 	}
+	size = arrsize(a);
 	*pnum = *pnum + 2;
 }
 
@@ -107,22 +104,22 @@ void	phase_one(t_stack **a, t_stack **b, char **inst)
 {
 	int	pnum;
 
-	pnum = 0;
+	pnum = 2;
 //	sorted_run(a);
 	while (arrsize(a))
 	{
 		if (arrsize(a) > 7)
 		{
-		partition_init(a, &pnum);
-		pivotpush_b(a, b, inst, pnum);
+			partition_init(a, &pnum);
+			pivotpush_b(a, b, inst, pnum - 2);
 		}
 		if (arrsize(a) > 3)
 		{
 			partition(a, &pnum);
-			pivotpush_b(a, b, inst, pnum);
+			pivotpush_b(a, b, inst, pnum - 2);
 		}
 		else
-		small_arrays(a, b, inst, pnum);
+			small_arrays(a, b, inst, pnum - 2);
 	}
 	endgame(a, b, inst);
 }
