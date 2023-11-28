@@ -95,7 +95,7 @@ void	phase_one(t_stack **a, t_stack **b, char **inst)
 			partition_init4(a, pnum);
 			pivotpush_b_phaseone(a, b, inst, &pnum);
 		}
-		else if (arrsize(a) > 6)
+		else if (arrsize(a) > 3)
 		{
 			partition_init2(a, pnum);
 			pivotpush_b_phaseone(a, b, inst, &pnum);
