@@ -93,11 +93,11 @@ void	phase_one(t_stack **a, t_stack **b, char **inst)
 		if (arrsize(a) > 12)
 		{
 			partition_init4(a, pnum);
-			pivotpush_b_phaseone(a, b, inst, &pnum);
+			pivotpush_init(a, b, inst);
 		}
 		else if (arrsize(a) > 3)
 		{
-			partition_init2(a, pnum);
+			partition_init4(a, pnum);
 			pivotpush_b_phaseone(a, b, inst, &pnum);
 		}
 		else
