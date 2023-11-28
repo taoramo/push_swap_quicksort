@@ -12,21 +12,23 @@
 
 #include "push_swap.h"
 
-void	reset_rotation_b(t_stack **a, t_stack **b, char **inst)
+void	reset_rotation_b_phaseone(t_stack **a, t_stack **b, char **inst)
 {
-	int	i;
-
-	i = 0;
 	if (!b[0])
 		return ;
-	while (i < arrsize(b) && b[i]->pnum != 1)
-		i++;
-	while (i < arrsize(b) && b[i]->pnum == 1)
-		i++;
-	if (i < arrsize(b) / 2)
-		rrotate_b(a, b, inst, (i - arrsize(b)) * -1);
-	else
-		rotate_b(a, b, inst, arrsize(b) - i);
+	while (b[arrsize(b) - 1]->pnum != 1)
+	{
+		if (a[0])
+		{
+			if (a[0]->pnum != 1 && a[0]->pnum != 2)
+			{
+				rotate_a(a, b, inst, 1);
+				rotate_b(a, b, inst, 1);
+			}
+		}
+		else
+			rotate_b(a, b, inst, 1);
+	}
 }
 
 int	p_size(t_stack **a, int pnum)

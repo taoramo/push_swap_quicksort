@@ -12,30 +12,22 @@
 
 #include "push_swap.h"
 
-void	pivotpush_b(t_stack **a, t_stack **b, char **inst, int pnum)
+void	pivotpush_b_phaseone(t_stack **a, t_stack **b, char **inst, int *pnum)
 {
-	while (!(p_size(a, pnum - 1) == 0 && p_size(a, pnum) == 0))
+	while (!(p_size(a, *pnum - 1) == 0 && p_size(a, *pnum) == 0))
 	{
-		if (a[0]->pnum == 0)
+		if (a[0]->pnum != *pnum && a[0]->pnum != *pnum - 1)
 			rotate_a(a, b, inst, 1);
-		if (a[0]->pnum == pnum - 1 && (b[0] == 0 || b[0]->pnum == pnum - 1))
-			push_b(a, b, inst);
-		else if (a[0]->pnum == pnum - 1 && (b[0]->pnum == pnum))
+		else if (a[0]->pnum == *pnum)
 		{
-			if (arrsize(b) > 2)
-				rrotate_b(a, b, inst, 1);
 			push_b(a, b, inst);
+			rotate_b(a, b, inst, 1);
 		}
-		else if (a[0]->pnum == pnum && (b[0] == 0 || b[0]->pnum == pnum))
+		else if (a[0]->pnum == *pnum - 1)
 			push_b(a, b, inst);
-		else if (a[0]->pnum == pnum && (b[0]->pnum == pnum - 1))
-		{
-			if (arrsize(b) > 2)
-				rotate_b(a, b, inst, 1);
-			push_b(a, b, inst);
-		}
 	}
-	reset_rotation_b(a, b, inst);
+	reset_rotation_b_phaseone(a, b, inst);
+	*pnum = *pnum + 2;
 }
 
 void	partition(t_stack **a, int *pnum)
@@ -51,12 +43,10 @@ void	partition(t_stack **a, int *pnum)
 			a[i]->pnum = *pnum;
 		i++;
 	}
-	*pnum = *pnum + 2;
 }
 
 void	partition_init(t_stack **a, int *pnum)
 {
-	int	size;
 	int	i;
 
 	i = 0;
@@ -68,36 +58,6 @@ void	partition_init(t_stack **a, int *pnum)
 			a[i]->pnum = *pnum;
 		i++;
 	}
-	size = arrsize(a);
-	*pnum = *pnum + 2;
-}
-
-void	sorted_run(t_stack **a)
-{
-	int	i;
-	int	sorted;
-	int	ione;
-
-	i = 0;
-	ione = 0;
-	sorted = 0;
-	while (i < arrsize(a) && a[i]->n != 1)
-		i++;
-	ione = i;
-	while (i + 1 < arrsize(a) && a[i + 1] == a[i] + 1)
-	{
-		sorted++;
-		i++;
-	}
-	i++;
-	if (sorted <= 3)
-		return ;
-	while (sorted)
-	{
-		a[i]->pnum = -1;
-		sorted--;
-		i--;
-	}
 }
 
 void	phase_one(t_stack **a, t_stack **b, char **inst)
@@ -105,21 +65,22 @@ void	phase_one(t_stack **a, t_stack **b, char **inst)
 	int	pnum;
 
 	pnum = 2;
-//	sorted_run(a);
+	if (is_sorted(a))
+		free_everything(a, b, inst);
 	while (arrsize(a))
 	{
 		if (arrsize(a) > 7)
 		{
 			partition_init(a, &pnum);
-			pivotpush_b(a, b, inst, pnum - 2);
+			pivotpush_b_phaseone(a, b, inst, &pnum);
 		}
 		if (arrsize(a) > 3)
 		{
 			partition(a, &pnum);
-			pivotpush_b(a, b, inst, pnum - 2);
+			pivotpush_b_phaseone(a, b, inst, &pnum);
 		}
 		else
-			small_arrays(a, b, inst, pnum - 2);
+			small_arrays(a, b, inst, 0);
 	}
 	endgame(a, b, inst);
 }

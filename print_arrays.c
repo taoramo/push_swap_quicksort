@@ -20,14 +20,14 @@ void	print_arrays(t_stack **a, t_stack **b)
 	ft_printf("a\n");
 	while (i < arrsize(a))
 	{
-		ft_printf("%i\n", a[i]->n);
+		ft_printf("%i	%i\n", a[i]->n, a[i]->pnum);
 		i++;
 	}
 	ft_printf("b\n");
 	i = 0;
 	while (i < arrsize(b))
 	{
-		ft_printf("%i\n", b[i]->n);
+		ft_printf("%i	%i\n", b[i]->n, b[i]->pnum);
 		i++;
 	}
 	ft_printf("=======================\n");

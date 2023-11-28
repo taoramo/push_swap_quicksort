@@ -23,7 +23,7 @@ typedef struct s_stack {
 	int	pivot;
 }	t_stack;
 int		find_largest(t_stack **a);
-void	reset_rotation_b(t_stack **a, t_stack **b, char **inst);
+void	reset_rotation_b_phaseone(t_stack **a, t_stack **b, char **inst);
 void	phase_one(t_stack **a, t_stack **b, char **inst);
 t_stack	**make_array(int argc, char **argv);
 void	free_everything(t_stack **a, t_stack **b, char **inst);
