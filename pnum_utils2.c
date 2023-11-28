@@ -33,3 +33,19 @@ int	pnum_median(t_stack **a, t_stack **b, int pnum)
 	else
 		return (0);
 }
+
+int	pnum_min_x(t_stack **x, int pnum)
+{
+	int	smallest;
+	int	i;
+
+	i = 0;
+	smallest = 2147483647;
+	while (i < arrsize(x))
+	{
+		if (x[i]->n < smallest && x[i]->pnum == pnum)
+			smallest = x[i]->n;
+		i++;
+	}
+	return (smallest);
+}

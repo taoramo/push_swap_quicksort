@@ -72,14 +72,16 @@ void	partition_init4(t_stack **a, int pnum)
 {
 	int	i;
 	int	median;
+	int	minimum;
 
 	median = pnum_median_x(a, 0);
+	minimum = pnum_min_x(a, 0);
 	i = 0;
 	while (i < arrsize(a))
 	{
-		if (a[i]->n <= median / 2)
+		if (a[i]->n <= median && a[i]->n <= (median - (median - minimum) / 2))
 			a[i]->pnum = pnum - 1;
-		if (a[i]->n > median / 2 && a[i]->n <= median)
+		if (a[i]->n <= median && a[i]->n > (median - (median - minimum) / 2))
 			a[i]->pnum = pnum;
 		i++;
 	}

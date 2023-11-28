@@ -22,6 +22,7 @@ typedef struct s_stack {
 	int	size;
 	int	pivot;
 }	t_stack;
+int		pnum_min_x(t_stack **x, int pnum);
 int		pnum_median_x(t_stack **x, int pnum);
 int		pnum_median(t_stack **a, t_stack **b, int pnum);
 int		find_largest(t_stack **a);
