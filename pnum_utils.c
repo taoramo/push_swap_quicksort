@@ -16,7 +16,7 @@ void	reset_rotation_b_phaseone(t_stack **a, t_stack **b, char **inst)
 {
 	if (!b[0])
 		return ;
-	while (b[arrsize(b) - 1]->pnum != 1)
+	while (b[arrsize(b) - 1]->pnum != 1 || b[0]->pnum == 1)
 	{
 		if (a[0])
 		{
