@@ -1,23 +1,17 @@
-CC = cc
-CFLAGS = -g -c -Wall -Wextra -Werror
+CC = cc $(CFLAGS)
+CFLAGS = -g -Wall -Wextra -Werror
 NAME = push_swap
 SRCS = endgame.c push_swap_utils.c instructions.c instructions2.c push_swap.c  sort.c sort2.c pnum_utils.c pnum_utils2.c print_arrays.c sort_three.c
 INCLUDES = ft_printf.h libft.h push_swap.h
 LIBFT = ./libft/libft.a
 BONUSNAME = checker
 
-OBJS = $(SRCS:.c=.o)
-all: $(NAME) $(OBJS)
+OBJS = $(SRCS:.c=.o) $(LIBFT)
+all: $(NAME)
 
-bonus : $(BONUSNAME)
+$(NAME) : $(OBJS) $(LIBFT)
 
-$(BONUSNAME) : $(NAME)
-	cp $(NAME) $(BONUSNAME)
-
-$(NAME) : $(LIBFT) $(OBJS)
-
-$(OBJS) : $(LIBFT)
-	cc $(CFLAGS) $(SRCS)
+$(OBJS) : $(SRCS)
 
 $(LIBFT):
 	make -C ./libft/

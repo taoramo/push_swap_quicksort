@@ -9,7 +9,6 @@
 /*   Updated: 2023/11/28 09:22:57 by toramo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
 #include "push_swap.h"
 
 void	pivotpush_init(t_stack **a, t_stack **b, char **inst)

@@ -27,20 +27,23 @@ int	pnum_largest(t_stack **a, t_stack **b)
 
 	i = 0;
 	pnum_max = 0;
-	while (i < arrsize(a))
+	if (a[0])
 	{
-		if (a[i]->pnum > pnum_max)
-			pnum_max = a[i]->pnum;
-		i++;
+		while (i < arrsize(a))
+		{
+			if (a[i]->pnum > pnum_max)
+				pnum_max = a[i]->pnum;
+			i++;
+		}
 	}
 	i = 0;
-	while (i < arrsize(b))
+	while (i < arrsize(b) && b[0])
 	{
 		if (b[i]->pnum > pnum_max)
 			pnum_max = b[i]->pnum;
 		i++;
 	}
-	return (i);
+	return (pnum_max);
 }
 
 void	pivotpush_a(t_stack **a, t_stack **b, char **inst, int *pnum)
@@ -77,7 +80,7 @@ void	phase_two(t_stack **a, t_stack **b, char **inst, int *pnum)
 {
 	int	pnum_max;
 
-	while (!is_sorted(a) && arrsize(a))
+	while (!is_sorted(a) || !arrsize(a))
 	{
 		pnum_max = pnum_largest(a, b);
 		if (p_size(a, pnum_max) <= 3 || p_size(b, pnum_max <= 3))

@@ -54,6 +54,6 @@ void	reset_rotation_a(t_stack **a, t_stack **b, char **inst)
 {
 	if (!a[0])
 		return ;
-	while (a[arrsize(a) - 1]->pnum != 1 || a[0]->pnum == 1)
+	while (a[arrsize(a) - 1]->pnum != 0 || a[0]->pnum == 0)
 		rrotate_b(a, b, inst, 1);
 }
