@@ -111,5 +111,6 @@ void	phase_one(t_stack **a, t_stack **b, char **inst)
 	}
 	if (arrsize(a))
 		small_arrays(a, b, inst, 0);
+	phase_two(a, b, inst, &pnum);
 	endgame(a, b, inst);
 }
