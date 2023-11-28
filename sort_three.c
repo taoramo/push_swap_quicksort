@@ -20,38 +20,45 @@ void	sort_three_a2(t_stack **a, t_stack **b, char **inst)
 		swap_a(a, b, inst);
 		rrotate_a(a, b, inst, 1);
 		swap_a(a, b, inst);
+		set_three_pnum(a);
 	}
-	if (a[2]->n < a[1]->n && a[1]->n < a[0]->n)
+	else if (a[2]->n < a[1]->n && a[1]->n < a[0]->n)
 	{
 		swap_a(a, b, inst);
 		rotate_a(a, b, inst, 1);
 		swap_a(a, b, inst);
 		rrotate_a(a, b, inst, 1);
 		swap_a(a, b, inst);
+		set_three_pnum(a);
 	}
-	set_three_pnum(a);
 }
 
 void	sort_three_a(t_stack **a, t_stack**b, char **inst)
 {
 	if (a[0]->n < a[1]->n && a[1]->n < a[2]->n)
 		return ;
-	if (a[0]->n < a[2]->n && a[2]->n < a[1]->n)
+	else if (a[0]->n < a[2]->n && a[2]->n < a[1]->n)
 	{
 		rotate_a(a, b, inst, 1);
 		swap_a(a, b, inst);
 		rrotate_a(a, b, inst, 1);
+		set_three_pnum(a);
 	}
-	if (a[1]->n < a[0]->n && a[0]->n < a[2]->n)
+	else if (a[1]->n < a[0]->n && a[0]->n < a[2]->n)
+	{
 		swap_a(a, b, inst);
-	if (a[1]->n < a[2]->n && a[2]->n < a[0]->n)
+		set_three_pnum(a);
+	}
+	else if (a[1]->n < a[2]->n && a[2]->n < a[0]->n)
 	{
 		swap_a(a, b, inst);
 		rotate_a(a, b, inst, 1);
 		swap_a(a, b, inst);
 		rrotate_a(a, b, inst, 1);
+		set_three_pnum(a);
 	}
-	sort_three_a2(a, b, inst);
+	else
+		sort_three_a2(a, b, inst);
 }
 
 void	push_two_a(t_stack **a, t_stack **b, char **inst)
@@ -69,7 +76,7 @@ void	sort_three_b2(t_stack **a, t_stack **b, char **inst)
 		rrotate_b(a, b, inst, 1);
 		push_a(a, b, inst);
 	}
-	if (b[2]->n > b[0]->n && b[0]->n > b[1]->n)
+	else if (b[2]->n > b[0]->n && b[0]->n > b[1]->n)
 	{
 		rotate_b(a, b, inst, 1);
 		swap_b(a, b, inst);
@@ -77,7 +84,7 @@ void	sort_three_b2(t_stack **a, t_stack **b, char **inst)
 		rrotate_b(a, b, inst, 1);
 		push_two_a(a, b, inst);
 	}
-	if (b[2]->n > b[1]->n && b[1]->n > b[0]->n)
+	else if (b[2]->n > b[1]->n && b[1]->n > b[0]->n)
 	{
 		rotate_b(a, b, inst, 1);
 		swap_b(a, b, inst);
@@ -95,6 +102,7 @@ void	sort_three_b(t_stack **a, t_stack **b, char **inst)
 		push_a(a, b, inst);
 		push_a(a, b, inst);
 		push_a(a, b, inst);
+		set_three_pnum(a);
 	}
 	if (b[0]->n > b[2]->n && b[2]->n > b[1]->n)
 	{
@@ -102,6 +110,7 @@ void	sort_three_b(t_stack **a, t_stack **b, char **inst)
 		swap_b(a, b, inst);
 		push_a(a, b, inst);
 		push_a(a, b, inst);
+		set_three_pnum(a);
 	}
 	if (b[1]->n > b[0]->n && b[0]->n > b[2]->n)
 	{
@@ -109,6 +118,7 @@ void	sort_three_b(t_stack **a, t_stack **b, char **inst)
 		push_a(a, b, inst);
 		push_a(a, b, inst);
 		push_a(a, b, inst);
+		set_three_pnum(a);
 	}
 	sort_three_b2(a, b, inst);
 }

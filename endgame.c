@@ -36,19 +36,21 @@ void	small_arrays2(t_stack **a, t_stack **b, char **inst, int pnum)
 {
 	if (b[0])
 	{
-		if ((p_size(a, pnum) == 1 || p_size(b, pnum) == 1)
-			&& b[0]->pnum == pnum)
+		if (p_size(b, pnum) == 1 && b[0]->pnum == pnum)
+		{
 			push_a(a, b, inst);
-		if ((p_size(a, pnum) == 2 || p_size(b, pnum) == 2) && a[0]->pnum == pnum
-			&& a[1]->n == a[0]->n + 1)
+			a[0]->pnum = 0;
+		}
+		if (p_size(b, pnum) == 2 && b[0]->pnum == pnum
+			&& b[1]->n == b[0]->n + 1)
 		{
 			push_a(a, b, inst);
 			push_a(a, b, inst);
 			a[0]->pnum = 0;
 			a[1]->pnum = 0;
 		}
-		if ((p_size(a, pnum) == 2 || p_size(b, pnum) == 2) && a[0]->pnum == pnum
-			&& a[0]->n == a[1]->n + 1)
+		if ((p_size(b, pnum) == 2 && b[0]->pnum == pnum
+				&& b[0]->n == b[1]->n + 1))
 		{
 			swap_a(a, b, inst);
 			push_a(a, b, inst);
@@ -65,16 +67,16 @@ void	small_arrays(t_stack **a, t_stack **b, char **inst, int pnum)
 		sort_three(a, b, inst, pnum);
 	if (a[0])
 	{
-		if ((p_size(a, pnum) == 1 || p_size(b, pnum) == 1) && a[0]->pnum == pnum
+		if ((p_size(a, pnum) == 1) && a[0]->pnum == pnum
 			&& a[1] == a[0] + 1)
 			a[0]->pnum = 0;
-		if ((p_size(a, pnum) == 2 || p_size(b, pnum) == 2) && a[0]->pnum == pnum
+		if ((p_size(a, pnum) == 2) && a[0]->pnum == pnum
 			&& a[1]->n == a[0]->n + 1)
 		{
 			a[0]->pnum = 0;
 			a[1]->pnum = 0;
 		}
-		if ((p_size(a, pnum) == 2 || p_size(b, pnum) == 2) && a[0]->pnum == pnum
+		if ((p_size(a, pnum) == 2) && a[0]->pnum == pnum
 			&& a[0]->n == a[1]->n + 1)
 		{
 			swap_a(a, b, inst);

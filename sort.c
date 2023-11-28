@@ -6,7 +6,7 @@
 /*   By: toramo <toramo.student@hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/27 10:04:57 by toramo            #+#    #+#             */
-/*   Updated: 2023/11/28 09:22:57 by toramo           ###   ########.fr       */
+/*   Updated: 2023/11/28 14:43:29 by toramo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "push_swap.h"
@@ -109,7 +109,9 @@ void	phase_one(t_stack **a, t_stack **b, char **inst)
 			small_arrays(a, b, inst, 0);
 	}
 	if (arrsize(a))
+	{
 		small_arrays(a, b, inst, 0);
+	}
 	phase_two(a, b, inst, &pnum);
 	endgame(a, b, inst);
 }
