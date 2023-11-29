@@ -67,13 +67,7 @@ void	pivotpush_a(t_stack **a, t_stack **b, char **inst, int pnum)
 	}
 	if (p_size(a, pnum) <= 3 && (a[3]->pnum == 0 || p_size(a, 0) == 0))
 		small_arrays(a, b, inst, pnum);
-	while (n)
-	{
-		rrotate_a(a, b, inst, 1);
-		if (a[0]->pnum == pnum - 1 && a[1]->pnum == pnum - 1&& a[0]->n < a[1]->n)
-			swap_a(a, b, inst);
-		n--;
-	}
+	rrotate_a(a, b, inst, n);
 }
 
 void	pivotpush_b(t_stack **a, t_stack **b, char **inst, int pnum)
@@ -92,13 +86,7 @@ void	pivotpush_b(t_stack **a, t_stack **b, char **inst, int pnum)
 		else if (a[0]->pnum == pnum - 1)
 			push_b(a, b, inst);
 	}
-	while (n)
-	{
-		rrotate_b(a, b, inst, 1);
-		if (b[0]->pnum == pnum && b[1]->pnum == pnum && b[0]->n < b[1]->n)
-			swap_b(a, b, inst);
-		n--;
-	}
+	rrotate_b(a, b, inst, n);
 }
 
 void	phase_two(t_stack **a, t_stack **b, char **inst, int *pnum)
