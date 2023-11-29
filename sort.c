@@ -78,9 +78,9 @@ void	partition_init4(t_stack **a, int pnum)
 	i = 0;
 	while (i < arrsize(a))
 	{
-		if (a[i]->n <= median && a[i]->n <= (median - (median - minimum) / 2))
+		if (a[i]->n <= median && a[i]->n <= (median - (median - minimum) / 3))
 			a[i]->pnum = pnum - 1;
-		if (a[i]->n <= median && a[i]->n > (median - (median - minimum) / 2))
+		if (a[i]->n <= median && a[i]->n > (median - (median - minimum) / 3))
 			a[i]->pnum = pnum;
 		i++;
 	}
@@ -95,7 +95,7 @@ void	phase_one(t_stack **a, t_stack **b, char **inst)
 		free_everything(a, b, inst);
 	while (arrsize(a) > 3)
 	{
-		if (arrsize(a) >= 3)
+		if (arrsize(a) >= 12)
 		{
 			partition_init4(a, pnum);
 			pivotpush_b_phaseone(a, b, inst, &pnum);
