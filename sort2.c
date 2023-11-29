@@ -51,6 +51,9 @@ int	pnum_largest(t_stack **a, t_stack **b)
 
 void	pivotpush_a(t_stack **a, t_stack **b, char **inst, int pnum)
 {
+	int	n;
+
+	n = 0;
 	while (!(p_size(b, pnum - 1) == 0 && p_size(b, pnum) == 0))
 	{
 		if (b[0]->pnum == pnum)
@@ -59,26 +62,31 @@ void	pivotpush_a(t_stack **a, t_stack **b, char **inst, int pnum)
 		{
 			push_a(a, b, inst);
 			rotate_a(a, b, inst, 1);
+			n++;
 		}
 	}
-	if (p_size(a, pnum) <= 3 && a[3]->pnum == 0)
+	if (p_size(a, pnum) <= 3 && (a[3]->pnum == 0 || p_size(a, 0) == 0))
 		small_arrays(a, b, inst, pnum);
-	reset_rotation_a(a, b, inst);
+	rrotate_a(a, b, inst, n);
 }
 
 void	pivotpush_b(t_stack **a, t_stack **b, char **inst, int pnum)
 {
+	int	n;
+
+	n = 0;
 	while (!(p_size(a, pnum - 1) == 0 && p_size(a, pnum) == 0))
 	{
 		if (a[0]->pnum == pnum)
 		{
 			push_b(a, b, inst);
 			rotate_b(a, b, inst, 1);
+			n++;
 		}
 		else if (a[0]->pnum == pnum - 1)
 			push_b(a, b, inst);
 	}
-	reset_rotation_b(a, b, inst, pnum);
+	rrotate_b(a, b, inst, n);
 }
 
 void	phase_two(t_stack **a, t_stack **b, char **inst, int *pnum)
@@ -87,11 +95,12 @@ void	phase_two(t_stack **a, t_stack **b, char **inst, int *pnum)
 
 	while (pnum_largest(a, b))
 	{
-//	print_arrays(a, b);
+		print_arrays(a, b);
 		pnum_max = pnum_largest(a, b);
-		if ((p_size(a, pnum_max) <= 3 && p_size(a, pnum_max))
-			|| (p_size(b, pnum_max) <= 3 && p_size(b, pnum_max)))
-			small_arrays(a, b, inst, pnum_max);
+		if ((p_size(a, pnum_max) <= 3 && p_size(a, pnum_max)))
+			small_arrays(a, b, inst, a[0]->pnum);
+		if ((p_size(b, pnum_max) <= 3 && p_size(b, pnum_max)))
+			small_arrays(a, b, inst, b[0]->pnum);
 		else if (p_size(a, pnum_max) > 3)
 		{
 			partition_2(a, a[0]->pnum, pnum);
@@ -102,6 +111,6 @@ void	phase_two(t_stack **a, t_stack **b, char **inst, int *pnum)
 			partition_2(b, b[0]->pnum, pnum);
 			pivotpush_a(a, b, inst, pnum_largest(a, b));
 		}
-//	print_arrays(a, b);
+		print_arrays(a, b);
 	}
 }

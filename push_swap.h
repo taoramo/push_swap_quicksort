@@ -26,7 +26,7 @@ int		pnum_min_x(t_stack **x, int pnum);
 int		pnum_median_x(t_stack **x, int pnum);
 int		pnum_median(t_stack **a, t_stack **b, int pnum);
 int		find_largest(t_stack **a);
-void	reset_rotation_a(t_stack **a, t_stack **b, char **inst);
+void	reset_rotation_a(t_stack **a, t_stack **b, char **inst, int pnum);
 void	reset_rotation_b(t_stack **a, t_stack **b, char **inst, int pnum);
 void	reset_rotation_b_phaseone(t_stack **a, t_stack **b, char **inst);
 void	phase_one(t_stack **a, t_stack **b, char **inst);

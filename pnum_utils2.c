@@ -50,10 +50,15 @@ int	pnum_min_x(t_stack **x, int pnum)
 	return (smallest);
 }
 
-void	reset_rotation_a(t_stack **a, t_stack **b, char **inst)
+void	reset_rotation_a(t_stack **a, t_stack **b, char **inst, int n)
 {
 	if (!a[0])
 		return ;
-	while (a[arrsize(a) - 1]->pnum != 0)
-		rrotate_a(a, b, inst, 1);
+	if (p_size(a, 0))
+	{
+		while (a[arrsize(a) - 1]->pnum != 0)
+			rrotate_a(a, b, inst, 1);
+	}
+	else
+		rrotate_a(a, b, inst, n);
 }

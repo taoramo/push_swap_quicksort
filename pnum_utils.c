@@ -31,19 +31,8 @@ void	reset_rotation_b_phaseone(t_stack **a, t_stack **b, char **inst)
 	}
 }
 
-void	reset_rotation_b(t_stack **a, t_stack **b, char **inst, int pnum)
+void	reset_rotation_b(t_stack **a, t_stack **b, char **inst, int n)
 {
-	int	i;
-	int	n;
-
-	i = 0;
-	n = 0;
-	while (i < arrsize(b))
-	{
-		if (b[i]->pnum == pnum)
-			n++;
-		i++;
-	}
 	if (!b[0])
 		return ;
 	if (p_size(b, 1))
@@ -62,6 +51,8 @@ int	p_size(t_stack **a, int pnum)
 
 	i = 0;
 	psize = 0;
+	if (arrsize(a) == 0)
+		return (0);
 	while (i < arrsize(a))
 	{
 		if (a[i]->pnum == pnum)

@@ -71,23 +71,26 @@ void	small_arrays(t_stack **a, t_stack **b, char **inst, int pnum)
 {
 	if ((p_size(a, pnum) == 3 || p_size(b, pnum) == 3))
 		sort_three(a, b, inst, pnum);
-	else if (a[0])
+	else
 	{
-		if ((p_size(a, pnum) == 1) && a[0]->pnum == pnum
-			&& a[1] == a[0] + 1)
-			a[0]->pnum = 0;
-		else if ((p_size(a, pnum) == 2) && a[0]->pnum == pnum
-			&& a[1]->n == a[0]->n + 1)
+		if (a[0])
 		{
-			a[0]->pnum = 0;
-			a[1]->pnum = 0;
-		}
-		else if ((p_size(a, pnum) == 2) && a[0]->pnum == pnum
-			&& a[0]->n == a[1]->n + 1)
-		{
-			swap_a(a, b, inst);
-			a[0]->pnum = 0;
-			a[1]->pnum = 0;
+			if ((p_size(a, pnum) == 1) && a[0]->pnum == pnum
+				&& a[1] == a[0] + 1)
+				a[0]->pnum = 0;
+			else if ((p_size(a, pnum) == 2) && a[0]->pnum == pnum
+				&& a[1]->n == a[0]->n + 1)
+			{
+				a[0]->pnum = 0;
+				a[1]->pnum = 0;
+			}
+			else if ((p_size(a, pnum) == 2) && a[0]->pnum == pnum
+				&& a[0]->n == a[1]->n + 1)
+			{
+				swap_a(a, b, inst);
+				a[0]->pnum = 0;
+				a[1]->pnum = 0;
+			}
 		}
 		small_arrays2(a, b, inst, pnum);
 	}
@@ -108,10 +111,10 @@ void	optimize(char **inst)
 			ft_strlcpy(inst[i], "rr", 3);
 			ft_strlcpy(inst[i + 1], "na", 3);
 		}
-		if ((!ft_strncmp("rra", inst[i], 2)
-				&& !ft_strncmp("rrb", inst[i + 1], 2))
-			|| (!ft_strncmp("rra", inst[i + 1], 2)
-				&& !ft_strncmp("rrb", inst[i], 2)))
+		if ((!ft_strncmp("rra", inst[i], 3)
+				&& !ft_strncmp("rrb", inst[i + 1], 3))
+			|| (!ft_strncmp("rra", inst[i + 1], 3)
+				&& !ft_strncmp("rrb", inst[i], 3)))
 		{
 			ft_strlcpy(inst[i], "rx", 3);
 			ft_strlcpy(inst[i + 1], "na", 3);
@@ -125,15 +128,25 @@ void	endgame(t_stack **a, t_stack **b, char **inst)
 	int	i;
 
 	i = 0;
-//	optimize(inst);
 	while (inst[i])
 	{
-//		if (!ft_strncmp("rx", inst[i], 2))
-//			ft_printf("rrr\n");
-//		else if (ft_strncmp("na", inst[i], 2))
+		if (!ft_strncmp("rx", inst[i], 2))
+			ft_printf("rrr\n");
+		else if (ft_strncmp("na", inst[i], 2))
 			ft_printf("%s\n", inst[i]);
 		i++;
 	}
-//	print_arrays(a, b);
+	write(1, "\n", 1);
+	optimize(inst);
+	i = 0;
+	while (inst[i])
+	{
+		if (!ft_strncmp("rx", inst[i], 2))
+			ft_printf("rrr\n");
+		else if (ft_strncmp("na", inst[i], 2))
+			ft_printf("%s\n", inst[i]);
+		i++;
+	}
+	print_arrays(a, b);
 	free_everything(a, b, inst);
 }

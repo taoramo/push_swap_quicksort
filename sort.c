@@ -108,10 +108,8 @@ void	phase_one(t_stack **a, t_stack **b, char **inst)
 		else
 			small_arrays(a, b, inst, 0);
 	}
-	if (arrsize(a))
-	{
+	if (arrsize(a) <= 3)
 		small_arrays(a, b, inst, 0);
-	}
 	phase_two(a, b, inst, &pnum);
 	endgame(a, b, inst);
 }
