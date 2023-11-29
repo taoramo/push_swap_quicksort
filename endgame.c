@@ -147,6 +147,5 @@ void	endgame(t_stack **a, t_stack **b, char **inst)
 			ft_printf("%s\n", inst[i]);
 		i++;
 	}
-	print_arrays(a, b);
 	free_everything(a, b, inst);
 }
