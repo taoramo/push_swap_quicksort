@@ -87,7 +87,7 @@ void	phase_two(t_stack **a, t_stack **b, char **inst, int *pnum)
 
 	while (pnum_largest(a, b))
 	{
-	print_arrays(a, b);
+//	print_arrays(a, b);
 		pnum_max = pnum_largest(a, b);
 		if ((p_size(a, pnum_max) <= 3 && p_size(a, pnum_max))
 			|| (p_size(b, pnum_max) <= 3 && p_size(b, pnum_max)))
@@ -102,6 +102,6 @@ void	phase_two(t_stack **a, t_stack **b, char **inst, int *pnum)
 			partition_2(b, b[0]->pnum, pnum);
 			pivotpush_a(a, b, inst, pnum_largest(a, b));
 		}
-	print_arrays(a, b);
+//	print_arrays(a, b);
 	}
 }

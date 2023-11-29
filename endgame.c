@@ -125,15 +125,15 @@ void	endgame(t_stack **a, t_stack **b, char **inst)
 	int	i;
 
 	i = 0;
-	optimize(inst);
+//	optimize(inst);
 	while (inst[i])
 	{
-		if (!ft_strncmp("rx", inst[i], 2))
-			ft_printf("rrr\n");
-		else if (ft_strncmp("na", inst[i], 2))
+//		if (!ft_strncmp("rx", inst[i], 2))
+//			ft_printf("rrr\n");
+//		else if (ft_strncmp("na", inst[i], 2))
 			ft_printf("%s\n", inst[i]);
 		i++;
 	}
-	print_arrays(a, b);
+//	print_arrays(a, b);
 	free_everything(a, b, inst);
 }
