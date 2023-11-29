@@ -31,12 +31,28 @@ void	reset_rotation_b_phaseone(t_stack **a, t_stack **b, char **inst)
 	}
 }
 
-void	reset_rotation_b(t_stack **a, t_stack **b, char **inst)
+void	reset_rotation_b(t_stack **a, t_stack **b, char **inst, int pnum)
 {
+	int	i;
+	int	n;
+
+	i = 0;
+	n = 0;
+	while (i < arrsize(b))
+	{
+		if (b[i]->pnum == pnum)
+			n++;
+		i++;
+	}
 	if (!b[0])
 		return ;
-	while (b[arrsize(b) - 1]->pnum != 1 || b[0]->pnum == 1)
-		rrotate_b(a, b, inst, 1);
+	if (p_size(b, 1))
+	{
+		while (b[arrsize(b) - 1]->pnum != 1 || b[0]->pnum == 1)
+			rrotate_b(a, b, inst, 1);
+	}
+	else
+		rrotate_b(a, b, inst, n);
 }
 
 int	p_size(t_stack **a, int pnum)

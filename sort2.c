@@ -78,7 +78,7 @@ void	pivotpush_b(t_stack **a, t_stack **b, char **inst, int pnum)
 		else if (a[0]->pnum == pnum - 1)
 			push_b(a, b, inst);
 	}
-	reset_rotation_b(a, b, inst);
+	reset_rotation_b(a, b, inst, pnum);
 }
 
 void	phase_two(t_stack **a, t_stack **b, char **inst, int *pnum)
@@ -87,7 +87,6 @@ void	phase_two(t_stack **a, t_stack **b, char **inst, int *pnum)
 
 	while (pnum_largest(a, b))
 	{
-		print_arrays(a, b);
 		pnum_max = pnum_largest(a, b);
 		if ((p_size(a, pnum_max) <= 3 && p_size(a, pnum_max))
 			|| (p_size(b, pnum_max) <= 3 && p_size(b, pnum_max)))
