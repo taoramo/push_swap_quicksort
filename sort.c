@@ -95,7 +95,7 @@ void	phase_one(t_stack **a, t_stack **b, char **inst)
 		free_everything(a, b, inst);
 	while (arrsize(a) > 3)
 	{
-		if (arrsize(a) >= 12)
+		if (arrsize(a) >= 3)
 		{
 			partition_init4(a, pnum);
 			pivotpush_b_phaseone(a, b, inst, &pnum);
