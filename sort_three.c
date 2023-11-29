@@ -36,7 +36,7 @@ void	sort_three_a2(t_stack **a, t_stack **b, char **inst)
 void	sort_three_a(t_stack **a, t_stack**b, char **inst)
 {
 	if (a[0]->n < a[1]->n && a[1]->n < a[2]->n)
-		return ;
+		set_three_pnum(a);
 	else if (a[0]->n < a[2]->n && a[2]->n < a[1]->n)
 	{
 		rotate_a(a, b, inst, 1);

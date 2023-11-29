@@ -20,14 +20,20 @@ void	sort_three(t_stack **a, t_stack**b, char **inst, int pnum)
 	while (i < arrsize(a))
 	{
 		if (a[i]->pnum == pnum)
+		{
 			sort_three_a(a, b, inst);
+			return ;
+		}
 		i++;
 	}
 	i = 0;
 	while (i < arrsize(b))
 	{
 		if (b[i]->pnum == pnum)
+		{
 			sort_three_b(a, b, inst);
+			return ;
+		}
 		i++;
 	}
 }
@@ -65,7 +71,7 @@ void	small_arrays(t_stack **a, t_stack **b, char **inst, int pnum)
 {
 	if ((p_size(a, pnum) == 3 || p_size(b, pnum) == 3))
 		sort_three(a, b, inst, pnum);
-	if (a[0])
+	else if (a[0])
 	{
 		if ((p_size(a, pnum) == 1) && a[0]->pnum == pnum
 			&& a[1] == a[0] + 1)
@@ -83,8 +89,9 @@ void	small_arrays(t_stack **a, t_stack **b, char **inst, int pnum)
 			a[0]->pnum = 0;
 			a[1]->pnum = 0;
 		}
+		small_arrays2(a, b, inst, pnum);
 	}
-	small_arrays2(a, b, inst, pnum);
+	
 }
 
 void	optimize(char **inst)
