@@ -54,4 +54,13 @@ void	sort_three_a(t_stack **a, t_stack **b, char **inst);
 void	sort_three_b(t_stack **a, t_stack **b, char **inst);
 int		p_size(t_stack **a, int pnum);
 void	small_arrays(t_stack **a, t_stack **b, char **argv, int pnum);
+int		*dup_arr_a(t_stack **a, t_stack **b, char **inst);
+int		*dup_arr_b(t_stack **a, t_stack **b, char **inst);
+int		arr_find_largest(int *arr, int size);
+int		arr_find_smallest(int *arr, int size);
+int		rotate_arr(int *arr, int size);
+int		distance_a(int *dup, int size, int n);
+int		distance_b(int *dup, int size, int n);
+void	find_place_a(t_stack **a, t_stack **b, int n, char **inst);
+void	find_place_b(t_stack **a, t_stack **b, int n, char **inst);
 #endif

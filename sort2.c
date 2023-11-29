@@ -92,23 +92,35 @@ void	pivotpush_b(t_stack **a, t_stack **b, char **inst, int pnum)
 void	phase_two(t_stack **a, t_stack **b, char **inst, int *pnum)
 {
 	int	pnum_max;
+	int	pnum_current;
 
 	while (!(is_sorted(a)) || arrsize(b))
 	{
 		pnum_max = pnum_largest(a, b);
 		if ((p_size(a, pnum_max) <= 3 && p_size(a, pnum_max)))
 			small_arrays(a, b, inst, a[0]->pnum);
-		if ((p_size(b, pnum_max) <= 3 && p_size(b, pnum_max)))
+		else if ((p_size(b, pnum_max) <= 3 && p_size(b, pnum_max)))
 			small_arrays(a, b, inst, b[0]->pnum);
 		else if (p_size(a, pnum_max) > 3)
 		{
 			partition_2(a, a[0]->pnum, pnum);
 			pivotpush_b(a, b, inst, pnum_largest(a, b));
 		}
-		else if (p_size(b, pnum_max) > 3)
+		else if (p_size(b, pnum_max) > 15)
 		{
 			partition_2(b, b[0]->pnum, pnum);
 			pivotpush_a(a, b, inst, pnum_largest(a, b));
+		}
+		else if (p_size(b, pnum_max) <= 15)
+		{
+			pnum_current = b[0]->pnum;
+			while (p_size(b, pnum_current))
+			{
+				find_place_a(a, b, b[0]->n, inst);
+				push_a(a, b, inst);
+				a[0]->pnum = 0;
+			}
+			find_place_a(a, b, 0, inst);
 		}
 	}
 }
