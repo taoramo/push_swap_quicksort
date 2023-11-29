@@ -93,7 +93,7 @@ void	phase_two(t_stack **a, t_stack **b, char **inst, int *pnum)
 {
 	int	pnum_max;
 
-	while (pnum_largest(a, b))
+	while (!(is_sorted(a)) && arrsize(b))
 	{
 		pnum_max = pnum_largest(a, b);
 		if ((p_size(a, pnum_max) <= 3 && p_size(a, pnum_max)))
