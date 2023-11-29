@@ -45,7 +45,8 @@ void	pivotpush_b_phaseone(t_stack **a, t_stack **b, char **inst, int *pnum)
 			else if (a[0]->pnum == *pnum - 1)
 				push_b(a, b, inst);
 		}
-		reset_rotation_b_phaseone(a, b, inst, pnum);
+		if (b[arrsize(b) - 1]->pnum != 1)
+			reset_rotation_b_phaseone(a, b, inst, pnum);
 	}
 	*pnum = *pnum + 2;
 }
@@ -78,9 +79,9 @@ void	partition_init4(t_stack **a, int pnum)
 	i = 0;
 	while (i < arrsize(a))
 	{
-		if (a[i]->n <= median && a[i]->n <= (median - (median - minimum) / 3))
+		if (a[i]->n <= median && a[i]->n <= (median - (median - minimum) / 2))
 			a[i]->pnum = pnum - 1;
-		if (a[i]->n <= median && a[i]->n > (median - (median - minimum) / 3))
+		if (a[i]->n <= median && a[i]->n > (median - (median - minimum) / 2))
 			a[i]->pnum = pnum;
 		i++;
 	}
