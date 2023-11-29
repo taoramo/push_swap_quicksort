@@ -42,7 +42,7 @@ void	small_arrays2(t_stack **a, t_stack **b, char **inst, int pnum)
 			a[0]->pnum = 0;
 		}
 		if (p_size(b, pnum) == 2 && b[0]->pnum == pnum
-			&& b[1]->n == b[0]->n + 1)
+			&& b[0]->n == b[1]->n + 1)
 		{
 			push_a(a, b, inst);
 			push_a(a, b, inst);
@@ -50,9 +50,9 @@ void	small_arrays2(t_stack **a, t_stack **b, char **inst, int pnum)
 			a[1]->pnum = 0;
 		}
 		if ((p_size(b, pnum) == 2 && b[0]->pnum == pnum
-				&& b[0]->n == b[1]->n + 1))
+				&& b[1]->n == b[0]->n + 1))
 		{
-			swap_a(a, b, inst);
+			swap_b(a, b, inst);
 			push_a(a, b, inst);
 			push_a(a, b, inst);
 			a[0]->pnum = 0;

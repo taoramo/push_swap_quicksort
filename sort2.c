@@ -36,6 +36,8 @@ int	pnum_largest(t_stack **a, t_stack **b)
 			i++;
 		}
 	}
+	if (pnum_max != 0)
+		return (pnum_max);
 	i = 0;
 	while (i < arrsize(b) && b[0])
 	{
@@ -51,13 +53,15 @@ void	pivotpush_a(t_stack **a, t_stack **b, char **inst, int *pnum)
 	while (!(p_size(b, *pnum - 1) == 0 && p_size(b, *pnum) == 0))
 	{
 		if (b[0]->pnum == *pnum)
+			push_a(a, b, inst);
+		else if (b[0]->pnum == *pnum - 1)
 		{
 			push_a(a, b, inst);
 			rotate_a(a, b, inst, 1);
 		}
-		else if (b[0]->pnum == *pnum - 1)
-			push_a(a, b, inst);
 	}
+	if (p_size(a, *pnum) <= 3 && a[3]->pnum == 0)
+		small_arrays(a, b, inst, *pnum);
 	reset_rotation_a(a, b, inst);
 }
 
