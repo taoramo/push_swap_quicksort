@@ -45,7 +45,7 @@ void	pivotpush_b_phaseone(t_stack **a, t_stack **b, char **inst, int *pnum)
 			else if (a[0]->pnum == *pnum - 1)
 				push_b(a, b, inst);
 		}
-		reset_rotation_b_phaseone(a, b, inst);
+		reset_rotation_b_phaseone(a, b, inst, pnum);
 	}
 	*pnum = *pnum + 2;
 }

@@ -28,7 +28,8 @@ int		pnum_median(t_stack **a, t_stack **b, int pnum);
 int		find_largest(t_stack **a);
 void	reset_rotation_a(t_stack **a, t_stack **b, char **inst, int pnum);
 void	reset_rotation_b(t_stack **a, t_stack **b, char **inst, int pnum);
-void	reset_rotation_b_phaseone(t_stack **a, t_stack **b, char **inst);
+void	reset_rotation_b_phaseone(t_stack **a,
+			t_stack **b, char **inst, int *pnum);
 void	phase_one(t_stack **a, t_stack **b, char **inst);
 void	phase_two(t_stack **a, t_stack **b, char **inst, int *pnum);
 t_stack	**make_array(int argc, char **argv);
