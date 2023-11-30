@@ -23,6 +23,7 @@ typedef struct s_stack {
 	int	pivot;
 }	t_stack;
 int		pnum_min_x(t_stack **x, int pnum);
+int		pnum_max_x(t_stack **x, int pnum);
 int		pnum_median_x(t_stack **x, int pnum);
 int		pnum_median(t_stack **a, t_stack **b, int pnum);
 int		find_largest(t_stack **a);
@@ -62,5 +63,7 @@ int		rotate_arr(int *arr, int size);
 int		distance_a(int *dup, int size, int n);
 int		distance_b(int *dup, int size, int n);
 void	find_place_a(t_stack **a, t_stack **b, int n, char **inst);
-void	find_place_b(t_stack **a, t_stack **b, int n, char **inst);
+void	find_place_b(t_stack **a, t_stack **b, t_stack *n, char **inst);
+void	reset_place_b(t_stack **a, t_stack **b, int pnum, char **inst);
+int		pnum_selector(t_stack **a, t_stack **b);
 #endif

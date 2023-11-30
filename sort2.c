@@ -21,7 +21,7 @@ void	partition_2(t_stack **a, int pnum_max, int *pnum)
 	}
 }
 
-int	pnum_largest(t_stack **a, t_stack **b)
+int	pnum_selector(t_stack **a, t_stack **b)
 {
 	int	pnum_max;
 	int	i;
@@ -91,36 +91,56 @@ void	pivotpush_b(t_stack **a, t_stack **b, char **inst, int pnum)
 
 void	phase_two(t_stack **a, t_stack **b, char **inst, int *pnum)
 {
-	int	pnum_max;
+	int	pnum_select;
 	int	pnum_current;
 
 	while (!(is_sorted(a)) || arrsize(b))
 	{
-		pnum_max = pnum_largest(a, b);
-		if ((p_size(a, pnum_max) <= 3 && p_size(a, pnum_max)))
+		pnum_select = pnum_selector(a, b);
+		if ((p_size(a, pnum_select) <= 3 && p_size(a, pnum_select)))
 			small_arrays(a, b, inst, a[0]->pnum);
-		else if ((p_size(b, pnum_max) <= 3 && p_size(b, pnum_max)))
+		else if ((p_size(b, pnum_select) <= 3 && p_size(b, pnum_select)))
 			small_arrays(a, b, inst, b[0]->pnum);
-		else if (p_size(a, pnum_max) > 3)
+		else if (p_size(a, pnum_select) && p_size(a, a[0]->pnum) > 14)
 		{
 			partition_2(a, a[0]->pnum, pnum);
-			pivotpush_b(a, b, inst, pnum_largest(a, b));
+			pivotpush_b(a, b, inst, pnum_selector(a, b));
 		}
-		else if (p_size(b, pnum_max) > 15)
+		else if (p_size(a, pnum_select) && p_size(a, a[0]->pnum) <= 14)
 		{
-			partition_2(b, b[0]->pnum, pnum);
-			pivotpush_a(a, b, inst, pnum_largest(a, b));
-		}
-		else if (p_size(b, pnum_max) <= 15)
-		{
-			pnum_current = b[0]->pnum;
-			while (p_size(b, pnum_current))
+			pnum_current = a[0]->pnum;
+			*pnum = *pnum + 10;
+			while (p_size(a, pnum_current))
 			{
-				find_place_a(a, b, b[0]->n, inst);
-				push_a(a, b, inst);
-				a[0]->pnum = 0;
+				find_place_b(a, b, a[0], inst);
+				b[0]->pnum = pnum_current + 8;
 			}
-			find_place_a(a, b, 0, inst);
+			if (p_size(b, 1))
+			{
+				while (b[arrsize(b) - 1]->pnum != 1)
+					rrotate_b(a, b, inst, 1);
+			}
+			else
+				reset_place_b(a, b, pnum_current + 8, inst);
+		}
+		if (b[0])
+		{
+			if (p_size(b, b[0]->pnum) > 24 && p_size(b, pnum_select))
+			{
+				partition_2(b, b[0]->pnum, pnum);
+				pivotpush_a(a, b, inst, pnum_selector(a, b));
+			}
+			else if (p_size(b, b[0]->pnum) <= 24 && p_size(b, pnum_select))
+			{
+				pnum_current = b[0]->pnum;
+				while (p_size(b, pnum_current))
+				{
+					find_place_a(a, b, b[0]->n, inst);
+					push_a(a, b, inst);
+					a[0]->pnum = 0;
+				}
+				find_place_a(a, b, 0, inst);
+			}
 		}
 	}
 }
