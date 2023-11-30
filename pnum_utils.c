@@ -14,19 +14,22 @@
 
 void	reset_rotation_b_phaseone(t_stack **a, t_stack **b, char **inst, int *pnum)
 {
+	(void)pnum;
 	if (!b[0])
 		return ;
 	while (b[arrsize(b) - 1]->pnum != 1 || b[0]->pnum == 1)
 	{
 		if (a[0])
 		{
-			if (a[0]->pnum != *pnum + 1)
+			if (a[0]->n < pnum_median_x(a, 0) / 2)
 			{
 				rrotate_a(a, b, inst, 1);
 				rrotate_b(a, b, inst, 1);
 			}
+			else
+				rrotate_b(a, b, inst, 1);
 		}
-		else
+		else 
 			rrotate_b(a, b, inst, 1);
 	}
 }
