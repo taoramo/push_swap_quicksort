@@ -94,7 +94,6 @@ void	small_arrays(t_stack **a, t_stack **b, char **inst, int pnum)
 		}
 		small_arrays2(a, b, inst, pnum);
 	}
-	
 }
 
 void	optimize(char **inst)
@@ -129,7 +128,6 @@ void	endgame(t_stack **a, t_stack **b, char **inst)
 
 	i = 0;
 	optimize(inst);
-	i = 0;
 	while (inst[i])
 	{
 		if (!ft_strncmp("rx", inst[i], 2))

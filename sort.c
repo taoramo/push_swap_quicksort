@@ -15,8 +15,6 @@ void	pivotpush_init(t_stack **a, t_stack **b, char **inst, int *pnum)
 {
 	while (!(p_size(a, 1) == 0 && p_size(a, 2) == 0))
 	{
-		if (arrsize(a) <= 3)
-			small_arrays(a, b, inst, 2);
 		if (a[0]->pnum != 2 && a[0]->pnum != 1)
 			rotate_a(a, b, inst, 1);
 		else if (a[0]->pnum == 1)
@@ -38,8 +36,6 @@ void	pivotpush_b_phaseone(t_stack **a, t_stack **b, char **inst, int *pnum)
 	{
 		while (!(p_size(a, *pnum - 1) == 0 && p_size(a, *pnum) == 0))
 		{
-			if (arrsize(a) <= 3)
-				small_arrays(a, b, inst, *pnum);
 			if (a[0]->pnum != *pnum && a[0]->pnum != *pnum - 1)
 				rotate_a(a, b, inst, 1);
 			else if (a[0]->pnum == *pnum)
@@ -131,6 +127,7 @@ void	phase_one(t_stack **a, t_stack **b, char **inst)
 		{
 			partition_init2(a, pnum);
 			pivotpush_b_phaseone(a, b, inst, &pnum);
+	//		insert_b(a, b, inst, &pnum);
 		}
 		else
 			small_arrays(a, b, inst, 0);

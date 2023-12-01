@@ -18,9 +18,6 @@
 typedef struct s_stack {
 	int	n;
 	int	pnum;
-	int	psize;
-	int	size;
-	int	pivot;
 }	t_stack;
 int		pnum_min_x(t_stack **x, int pnum);
 int		pnum_max_x(t_stack **x, int pnum);
@@ -66,4 +63,6 @@ void	find_place_a(t_stack **a, t_stack **b, int n, char **inst);
 void	find_place_b(t_stack **a, t_stack **b, t_stack *n, char **inst);
 void	reset_place_b(t_stack **a, t_stack **b, int pnum, char **inst);
 int		pnum_selector(t_stack **a, t_stack **b);
+void	insert_a(t_stack **a, t_stack **b, char **inst);
+void	insert_b(t_stack **a, t_stack **b, char **inst, int *pnum);
 #endif
