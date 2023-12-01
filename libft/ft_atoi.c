@@ -14,8 +14,8 @@
 
 int	ft_str_to_int(const char *str)
 {
-	int	i;
-	int	result;
+	int		i;
+	long	result;
 
 	result = 0;
 	i = 0;
@@ -24,7 +24,9 @@ int	ft_str_to_int(const char *str)
 		result = result * 10 + (str[i] - 48);
 		i++;
 	}
-	return (result);
+	if (result > 2147483647 || result < -2147483648)
+		return (0);
+	return ((int)result);
 }
 
 int	ft_atoi(const char *str)
