@@ -12,7 +12,8 @@
 
 #include "push_swap.h"
 
-void	reset_rotation_b_phaseone(t_stack **a, t_stack **b, char **inst, int *pnum)
+void	reset_rotation_b_phaseone(t_stack **a,
+	t_stack **b, char **inst, int *pnum)
 {
 	if (!b[0])
 		return ;

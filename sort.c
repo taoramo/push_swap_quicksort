@@ -52,63 +52,6 @@ void	pivotpush_b_phaseone(t_stack **a, t_stack **b, char **inst, int *pnum)
 	*pnum = *pnum + 2;
 }
 
-void	partition_init2(t_stack **a, int pnum)
-{
-	int	i;
-	int	median;
-
-	i = 0;
-	median = pnum_median_x(a, 0);
-	while (i < arrsize(a))
-	{
-		if (a[i]->n <= median)
-			a[i]->pnum = pnum - 1;
-		if (a[i]->n > median)
-			a[i]->pnum = pnum;
-		i++;
-	}
-}
-
-void	partition_init4(t_stack **a, int pnum)
-{
-	int	i;
-	int	median;
-	int	minimum;
-
-	median = pnum_median_x(a, 0);
-	minimum = pnum_min_x(a, 0);
-	i = 0;
-	while (i < arrsize(a))
-	{
-		if (a[i]->n <= median && a[i]->n <= (median - (median - minimum) / 2))
-			a[i]->pnum = pnum - 1;
-		if (a[i]->n <= median && a[i]->n > (median - (median - minimum) / 2))
-			a[i]->pnum = pnum;
-		i++;
-	}
-}
-
-void	partition_init6(t_stack **a, int pnum)
-{
-	int	i;
-	int	min;
-	int	max;
-	int	pivot;
-
-	min = pnum_min_x(a, 0);
-	max = pnum_max_x(a, 0);
-	pivot = min + (max - min) / 6;
-	i = 0;
-	while (i < arrsize(a))
-	{
-		if (a[i]->n <= pivot)
-			a[i]->pnum = pnum - 1;
-		if (a[i]->n > pivot && a[i]->n < pivot + (max - min) / 6)
-			a[i]->pnum = pnum;
-		i++;
-	}
-}
-
 void	phase_one(t_stack **a, t_stack **b, char **inst)
 {
 	int	pnum;
@@ -127,7 +70,6 @@ void	phase_one(t_stack **a, t_stack **b, char **inst)
 		{
 			partition_init2(a, pnum);
 			pivotpush_b_phaseone(a, b, inst, &pnum);
-	//		insert_b(a, b, inst, &pnum);
 		}
 		else
 			small_arrays(a, b, inst, 0);

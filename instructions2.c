@@ -73,7 +73,8 @@ void	swap_a(t_stack **a, t_stack **b, char **inst)
 	temp = a[0];
 	a[0] = a[1];
 	a[1] = temp;
-	add_instruction(a, b, "sa", inst);
+	if (arrsize(a) > 1)
+		add_instruction(a, b, "sa", inst);
 }
 
 void	swap_b(t_stack **a, t_stack **b, char **inst)
@@ -83,5 +84,6 @@ void	swap_b(t_stack **a, t_stack **b, char **inst)
 	temp = b[0];
 	b[0] = b[1];
 	b[1] = temp;
-	add_instruction(a, b, "sb", inst);
+	if (arrsize(b) > 1)
+		add_instruction(a, b, "sb", inst);
 }

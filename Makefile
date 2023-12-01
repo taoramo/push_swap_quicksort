@@ -1,7 +1,7 @@
 CC = cc $(CFLAGS)
-CFLAGS = -g -Wall -Wextra -Werror
+CFLAGS = -Wall -Wextra -Werror
 NAME = push_swap
-SRCS = endgame.c push_swap_utils.c instructions.c instructions2.c push_swap.c  sort.c sort2.c pnum_utils.c pnum_utils2.c print_arrays.c sort_three.c stupidsort.c
+SRCS = endgame.c push_swap_utils.c instructions.c instructions2.c push_swap.c  sort.c sort2.c pnum_utils.c pnum_utils2.c print_arrays.c sort_three.c insertion.c insertion2.c partition_init.c check_input.c arr_utils.c make_array.c
 INCLUDES = ft_printf.h libft.h push_swap.h
 LIBFT = ./libft/libft.a
 BONUSNAME = checker

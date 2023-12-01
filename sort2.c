@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   sort2.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: toramo <toramo.student@hive.fi>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/12/01 12:09:45 by toramo            #+#    #+#             */
+/*   Updated: 2023/12/01 12:09:46 by toramo           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "push_swap.h"
 
 void	partition_2(t_stack **a, int pnum_max, int *pnum)
@@ -87,40 +99,6 @@ void	pivotpush_b(t_stack **a, t_stack **b, char **inst, int pnum)
 			push_b(a, b, inst);
 	}
 	rrotate_b(a, b, inst, n);
-}
-
-void	insert_b(t_stack **a, t_stack **b, char **inst, int *pnum)
-{
-	int	pnum_current;
-
-	pnum_current = a[0]->pnum;
-	*pnum = *pnum + 10;
-	while (p_size(a, pnum_current))
-	{
-		find_place_b(a, b, a[0], inst);
-		b[0]->pnum = pnum_current + 8;
-	}
-	if (p_size(b, 1))
-	{
-		while (b[arrsize(b) - 1]->pnum != 1)
-			rrotate_b(a, b, inst, 1);
-	}
-	else
-		reset_place_b(a, b, pnum_current + 8, inst);
-}
-
-void	insert_a(t_stack **a, t_stack **b, char **inst)
-{
-	int	pnum_current;
-
-	pnum_current = b[0]->pnum;
-	while (p_size(b, pnum_current))
-	{
-		find_place_a(a, b, b[0]->n, inst);
-		push_a(a, b, inst);
-		a[0]->pnum = 0;
-	}
-	find_place_a(a, b, 0, inst);
 }
 
 void	phase_two(t_stack **a, t_stack **b, char **inst, int *pnum)

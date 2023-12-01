@@ -30,7 +30,7 @@ void	reset_rotation_b_phaseone(t_stack **a,
 			t_stack **b, char **inst, int *pnum);
 void	phase_one(t_stack **a, t_stack **b, char **inst);
 void	phase_two(t_stack **a, t_stack **b, char **inst, int *pnum);
-t_stack	**make_array(int argc, char **argv);
+t_stack	**make_array(int argc, char **argv, int flag);
 void	free_everything(t_stack **a, t_stack **b, char **inst);
 int		is_sorted(t_stack **a);
 int		arrsize(t_stack **a);
@@ -65,4 +65,13 @@ void	reset_place_b(t_stack **a, t_stack **b, int pnum, char **inst);
 int		pnum_selector(t_stack **a, t_stack **b);
 void	insert_a(t_stack **a, t_stack **b, char **inst);
 void	insert_b(t_stack **a, t_stack **b, char **inst, int *pnum);
+int		check_ints(int argc, char **argv);
+int		check_mult_str(int argc, char **argv);
+int		check_single_str(int argc, char **argv);
+int		check_input(int argc, char **argv);
+void	partition_init2(t_stack **a, int pnum);
+void	partition_init4(t_stack **a, int pnum);
+void	partition_init6(t_stack **a, int pnum);
+int		free_split(char **split);
+int		check_duplicates(int *arr, int size);
 #endif
