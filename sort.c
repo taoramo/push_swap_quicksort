@@ -11,10 +11,12 @@
 /* ************************************************************************** */
 #include "push_swap.h"
 
-void	pivotpush_init(t_stack **a, t_stack **b, char **inst)
+void	pivotpush_init(t_stack **a, t_stack **b, char **inst, int *pnum)
 {
 	while (!(p_size(a, 1) == 0 && p_size(a, 2) == 0))
 	{
+		if (arrsize(a) <= 3)
+			small_arrays(a, b, inst, 2);
 		if (a[0]->pnum != 2 && a[0]->pnum != 1)
 			rotate_a(a, b, inst, 1);
 		else if (a[0]->pnum == 1)
@@ -25,16 +27,19 @@ void	pivotpush_init(t_stack **a, t_stack **b, char **inst)
 		else if (a[0]->pnum == 2)
 			push_b(a, b, inst);
 	}
+	*pnum = *pnum + 2;
 }
 
 void	pivotpush_b_phaseone(t_stack **a, t_stack **b, char **inst, int *pnum)
 {
 	if (*pnum == 2)
-		pivotpush_init(a, b, inst);
+		pivotpush_init(a, b, inst, pnum);
 	else
 	{
 		while (!(p_size(a, *pnum - 1) == 0 && p_size(a, *pnum) == 0))
 		{
+			if (arrsize(a) <= 3)
+				small_arrays(a, b, inst, *pnum);
 			if (a[0]->pnum != *pnum && a[0]->pnum != *pnum - 1)
 				rotate_a(a, b, inst, 1);
 			else if (a[0]->pnum == *pnum)
@@ -87,6 +92,27 @@ void	partition_init4(t_stack **a, int pnum)
 	}
 }
 
+void	partition_init6(t_stack **a, int pnum)
+{
+	int	i;
+	int	min;
+	int	max;
+	int	pivot;
+
+	min = pnum_min_x(a, 0);
+	max = pnum_max_x(a, 0);
+	pivot = min + (max - min) / 6;
+	i = 0;
+	while (i < arrsize(a))
+	{
+		if (a[i]->n <= pivot)
+			a[i]->pnum = pnum - 1;
+		if (a[i]->n > pivot && a[i]->n < pivot + (max - min) / 6)
+			a[i]->pnum = pnum;
+		i++;
+	}
+}
+
 void	phase_one(t_stack **a, t_stack **b, char **inst)
 {
 	int	pnum;
@@ -96,9 +122,9 @@ void	phase_one(t_stack **a, t_stack **b, char **inst)
 		free_everything(a, b, inst);
 	while (arrsize(a) > 3)
 	{
-		if (arrsize(a) >= 8)
+		if (arrsize(a) >= 12)
 		{
-			partition_init4(a, pnum);
+			partition_init6(a, pnum);
 			pivotpush_b_phaseone(a, b, inst, &pnum);
 		}
 		else if (arrsize(a) > 3)
