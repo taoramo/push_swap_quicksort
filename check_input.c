@@ -33,7 +33,7 @@ int	check_ints(int argc, char **argv)
 		i++;
 	}
 	if (!ret)
-		ft_printf("Error.\n");
+		ft_printf("Error\n");
 	if (ints && argc == 2)
 		free_split(ints);
 	return (ret);
@@ -48,20 +48,20 @@ int	check_mult_str(int argc, char **argv)
 	while (i < argc - 1)
 	{
 		j = 1;
+		if (!ft_strlen(argv[i]))
+		{
+			ft_printf("Error\n");
+			exit(1);
+		}
 		while (argv[i][j])
 		{
 			if ((!ft_isdigit(argv[i][1]) && argv[i][1] != '-')
 				|| !ft_isdigit(argv[i][j]))
 			{
-				ft_printf("Error.\n");
+				ft_printf("Error\n");
 				exit(1);
 			}
 			j++;
-		}
-		if (!ft_strlen(argv[i]))
-		{
-			ft_printf("Error.\n");
-			exit(1);
 		}
 		i++;
 	}
@@ -73,11 +73,13 @@ int	check_single_str(int argc, char **argv)
 	int	i;
 
 	i = 0;
+	if (argv[1][0] == 0)
+		return (0);
 	while (argv[1][i])
 	{
 		if (!ft_isdigit(argv[1][i]) && argv[1][i] != '-' && argv[1][i] != ' ')
 		{
-			ft_printf("Error.\n");
+			ft_printf("Error\n");
 			exit(1);
 		}
 		i++;

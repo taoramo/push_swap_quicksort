@@ -25,7 +25,7 @@ int	check_duplicates(int *arr, int size)
 		{
 			if (arr[i] == arr[j] && i != j)
 			{
-				ft_printf("Error.\n");
+				ft_printf("Error\n");
 				return (0);
 			}
 			j++;
@@ -89,7 +89,11 @@ t_stack	**split_array(char **argv, int *size)
 	if (!ints)
 		return (0);
 	while (ints[i])
+	{
+		if (!ft_strlen(ints[i]))
+			return (0);
 		i++;
+	}
 	*size = i;
 	arr = (t_stack **)ft_calloc(sizeof(t_stack *), i + 1);
 	free_split(ints);
