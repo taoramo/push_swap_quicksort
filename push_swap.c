@@ -33,30 +33,21 @@ void	free_everything(t_stack **a, t_stack **b, char **inst)
 	if (a)
 	{
 		while (a[i])
-		{
-			free(a[i]);
-			i++;
-		}
+			free(a[i++]);
 		free(a);
 	}
 	i = 0;
 	if (b)
 	{
 		while (b[i] && b)
-		{
-			free(b[i]);
-			i++;
-		}
+			free(b[i++]);
 		free(b);
 	}
+	i = 0;
 	if (inst)
 	{
-		i = 0;
 		while (inst[i])
-		{
-			free(inst[i]);
-			i++;
-		}
+			free(inst[i++]);
 		free(inst);
 	}
 	exit(0);
@@ -84,5 +75,8 @@ int	main(int argc, char **argv)
 	inst = ft_calloc(sizeof(char *), size * size);
 	if (!inst)
 		free_everything(a, b, inst);
-	phase_one(a, b, inst);
+	if (!is_sorted(a))
+		phase_one(a, b, inst);
+	else
+		free_everything(a, b, inst);
 }

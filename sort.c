@@ -57,8 +57,8 @@ void	phase_one(t_stack **a, t_stack **b, char **inst)
 	int	pnum;
 
 	pnum = 2;
-	if (is_sorted(a))
-		free_everything(a, b, inst);
+	if (arrsize(a) < 12)
+		small_n(a, b, inst);
 	while (arrsize(a) > 3)
 	{
 		if (arrsize(a) >= 12)

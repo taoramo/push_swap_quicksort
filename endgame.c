@@ -21,7 +21,10 @@ void	sort_three(t_stack **a, t_stack**b, char **inst, int pnum)
 	{
 		if (a[i]->pnum == pnum)
 		{
-			sort_three_a(a, b, inst);
+			if (arrsize(a) > 3)
+				sort_three_a(a, b, inst);
+			else
+				sort_last_three_a(a, b, inst);
 			return ;
 		}
 		i++;

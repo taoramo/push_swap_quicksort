@@ -50,6 +50,7 @@ void	set_three_pnum(t_stack **a);
 void	sort_three(t_stack **a, t_stack **b, char **inst, int pnum);
 void	sort_three_a(t_stack **a, t_stack **b, char **inst);
 void	sort_three_b(t_stack **a, t_stack **b, char **inst);
+void	sort_last_three_a(t_stack **a, t_stack **b, char **inst);
 int		p_size(t_stack **a, int pnum);
 void	small_arrays(t_stack **a, t_stack **b, char **argv, int pnum);
 int		*dup_arr_a(t_stack **a, t_stack **b, char **inst);
@@ -74,4 +75,9 @@ void	partition_init4(t_stack **a, int pnum);
 void	partition_init6(t_stack **a, int pnum);
 int		free_split(char **split);
 int		check_duplicates(int *arr, int size);
+void	pivotpush_a(t_stack **a, t_stack **b, char **inst, int pnum);
+void	pivotpush_b(t_stack **a, t_stack **b, char **inst, int pnum);
+int		partition_threes(t_stack **a);
+void	sort_last_three_a(t_stack **a, t_stack **b, char **inst);
+void	small_n(t_stack **a, t_stack **b, char **argv);
 #endif
