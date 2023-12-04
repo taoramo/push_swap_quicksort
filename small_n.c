@@ -44,22 +44,12 @@ void	sort_last_three_a(t_stack **a, t_stack **b, char **inst)
 	set_three_pnum(a);
 }
 
-void	small_n(t_stack **a, t_stack **b, char **inst)
+void	small_n2(t_stack **a, t_stack **b, char **inst)
 {
 	int	pnum;
 	int	pnum_current;
 
 	pnum_current = 1;
-	if (arrsize(a) == 3)
-	{
-		sort_last_three_a(a, b, inst);
-		endgame(a, b, inst);
-	}
-	if (arrsize(a) < 3)
-	{
-		small_arrays(a, b, inst, 0);
-		endgame(a, b, inst);
-	}
 	pnum = partition_threes(a);
 	while (pnum_current < pnum)
 	{
@@ -77,4 +67,19 @@ void	small_n(t_stack **a, t_stack **b, char **inst)
 	while (arrsize(b))
 		small_arrays(a, b, inst, b[0]->pnum);
 	endgame(a, b, inst);
+}
+
+void	small_n(t_stack **a, t_stack **b, char **inst)
+{
+	if (arrsize(a) == 3)
+	{
+		sort_last_three_a(a, b, inst);
+		endgame(a, b, inst);
+	}
+	if (arrsize(a) < 3)
+	{
+		small_arrays(a, b, inst, 0);
+		endgame(a, b, inst);
+	}
+	small_n2(a, b, inst);
 }

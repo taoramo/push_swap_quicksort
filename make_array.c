@@ -25,7 +25,7 @@ int	check_duplicates(int *arr, int size)
 		{
 			if (arr[i] == arr[j] && i != j)
 			{
-				ft_printf("Error\n");
+				write(2, "Error\n", 6);
 				return (0);
 			}
 			j++;

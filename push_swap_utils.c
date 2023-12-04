@@ -33,6 +33,8 @@ void	add_instruction(t_stack **a, t_stack **b, char *str, char **inst)
 	int	i;
 
 	i = 0;
+	if (!inst)
+		return ;
 	while (inst[i])
 		i++;
 	inst[i] = ft_strdup(str);
