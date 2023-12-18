@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   pnum_utils2.c                                      :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: toramo <toramo.student@hive.fi>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/12/01 12:09:24 by toramo            #+#    #+#             */
+/*   Updated: 2023/12/01 12:09:25 by toramo           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "push_swap.h"
 
 int	pnum_median_x(t_stack **x, int pnum)
@@ -32,6 +44,22 @@ int	pnum_median(t_stack **a, t_stack **b, int pnum)
 		return (pnum_median_x(b, pnum));
 	else
 		return (0);
+}
+
+int	pnum_max_x(t_stack **x, int pnum)
+{
+	int	largest;
+	int	i;
+
+	i = 0;
+	largest = -2147483648;
+	while (i < arrsize(x))
+	{
+		if (x[i]->n > largest && x[i]->pnum == pnum)
+			largest = x[i]->n;
+		i++;
+	}
+	return (largest);
 }
 
 int	pnum_min_x(t_stack **x, int pnum)

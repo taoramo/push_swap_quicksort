@@ -11,7 +11,7 @@
 /* ************************************************************************** */
 #include "push_swap.h"
 
-void	pivotpush_init(t_stack **a, t_stack **b, char **inst)
+void	pivotpush_init(t_stack **a, t_stack **b, char **inst, int *pnum)
 {
 	while (!(p_size(a, 1) == 0 && p_size(a, 2) == 0))
 	{
@@ -25,12 +25,13 @@ void	pivotpush_init(t_stack **a, t_stack **b, char **inst)
 		else if (a[0]->pnum == 2)
 			push_b(a, b, inst);
 	}
+	*pnum = *pnum + 2;
 }
 
 void	pivotpush_b_phaseone(t_stack **a, t_stack **b, char **inst, int *pnum)
 {
 	if (*pnum == 2)
-		pivotpush_init(a, b, inst);
+		pivotpush_init(a, b, inst, pnum);
 	else
 	{
 		while (!(p_size(a, *pnum - 1) == 0 && p_size(a, *pnum) == 0))
@@ -51,54 +52,18 @@ void	pivotpush_b_phaseone(t_stack **a, t_stack **b, char **inst, int *pnum)
 	*pnum = *pnum + 2;
 }
 
-void	partition_init2(t_stack **a, int pnum)
-{
-	int	i;
-	int	median;
-
-	i = 0;
-	median = pnum_median_x(a, 0);
-	while (i < arrsize(a))
-	{
-		if (a[i]->n <= median)
-			a[i]->pnum = pnum - 1;
-		if (a[i]->n > median)
-			a[i]->pnum = pnum;
-		i++;
-	}
-}
-
-void	partition_init4(t_stack **a, int pnum)
-{
-	int	i;
-	int	median;
-	int	minimum;
-
-	median = pnum_median_x(a, 0);
-	minimum = pnum_min_x(a, 0);
-	i = 0;
-	while (i < arrsize(a))
-	{
-		if (a[i]->n <= median && a[i]->n <= (median - (median - minimum) / 2))
-			a[i]->pnum = pnum - 1;
-		if (a[i]->n <= median && a[i]->n > (median - (median - minimum) / 2))
-			a[i]->pnum = pnum;
-		i++;
-	}
-}
-
 void	phase_one(t_stack **a, t_stack **b, char **inst)
 {
 	int	pnum;
 
 	pnum = 2;
-	if (is_sorted(a))
-		free_everything(a, b, inst);
+	if (arrsize(a) < 12)
+		small_n(a, b, inst);
 	while (arrsize(a) > 3)
 	{
 		if (arrsize(a) >= 12)
 		{
-			partition_init4(a, pnum);
+			partition_init6(a, pnum);
 			pivotpush_b_phaseone(a, b, inst, &pnum);
 		}
 		else if (arrsize(a) > 3)

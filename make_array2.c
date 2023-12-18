@@ -1,43 +1,52 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   push_swap_utils.c                                  :+:      :+:    :+:   */
+/*   make_array2.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: toramo <toramo.student@hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/11/27 14:57:42 by toramo            #+#    #+#             */
-/*   Updated: 2023/11/27 14:57:43 by toramo           ###   ########.fr       */
+/*   Created: 2023/12/15 12:43:28 by toramo            #+#    #+#             */
+/*   Updated: 2023/12/15 12:43:29 by toramo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-int	is_sorted(t_stack **a)
+int	check_duplicates(int *arr, int size)
 {
 	int	i;
-	int	size;
+	int	j;
 
 	i = 0;
-	size = arrsize(a);
-	while (i <= size - 2)
+	while (i < size)
 	{
-		if (a[i]->n > a[i + 1]->n)
-			return (0);
+		j = 0;
+		while (j < size)
+		{
+			if (arr[i] == arr[j] && i != j)
+			{
+				write(2, "Error\n", 6);
+				return (0);
+			}
+			j++;
+		}
 		i++;
 	}
 	return (1);
 }
 
-void	add_instruction(t_stack **a, t_stack **b, char *str, char **inst)
+int	ft_rank(int n, int *input, int size)
 {
+	int	smaller;
 	int	i;
 
 	i = 0;
-	if (!inst)
-		return ;
-	while (inst[i])
+	smaller = 0;
+	while (i < size)
+	{
+		if (n > input[i])
+			smaller++;
 		i++;
-	inst[i] = ft_strdup(str);
-	if (!inst[i])
-		free_everything(a, b, inst);
+	}
+	return (smaller + 1);
 }

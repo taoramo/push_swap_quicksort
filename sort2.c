@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   sort2.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: toramo <toramo.student@hive.fi>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/12/01 12:09:45 by toramo            #+#    #+#             */
+/*   Updated: 2023/12/01 12:09:46 by toramo           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "push_swap.h"
 
 void	partition_2(t_stack **a, int pnum_max, int *pnum)
@@ -21,7 +33,7 @@ void	partition_2(t_stack **a, int pnum_max, int *pnum)
 	}
 }
 
-int	pnum_largest(t_stack **a, t_stack **b)
+int	pnum_selector(t_stack **a, t_stack **b)
 {
 	int	pnum_max;
 	int	i;
@@ -91,24 +103,28 @@ void	pivotpush_b(t_stack **a, t_stack **b, char **inst, int pnum)
 
 void	phase_two(t_stack **a, t_stack **b, char **inst, int *pnum)
 {
-	int	pnum_max;
+	int	pnum_select;
 
 	while (!(is_sorted(a)) || arrsize(b))
 	{
-		pnum_max = pnum_largest(a, b);
-		if ((p_size(a, pnum_max) <= 3 && p_size(a, pnum_max)))
+		pnum_select = pnum_selector(a, b);
+		if ((p_size(a, pnum_select) <= 3 && p_size(a, pnum_select)))
 			small_arrays(a, b, inst, a[0]->pnum);
-		if ((p_size(b, pnum_max) <= 3 && p_size(b, pnum_max)))
+		else if ((p_size(b, pnum_select) <= 3 && p_size(b, pnum_select)))
 			small_arrays(a, b, inst, b[0]->pnum);
-		else if (p_size(a, pnum_max) > 3)
+		else if (p_size(a, pnum_select) && p_size(a, a[0]->pnum) > 24)
 		{
 			partition_2(a, a[0]->pnum, pnum);
-			pivotpush_b(a, b, inst, pnum_largest(a, b));
+			pivotpush_b(a, b, inst, pnum_selector(a, b));
 		}
-		else if (p_size(b, pnum_max) > 3)
+		else if (p_size(a, pnum_select) && p_size(a, a[0]->pnum) <= 24)
+			insert_b(a, b, inst, pnum);
+		else if (p_size(b, b[0]->pnum) > 24 && p_size(b, pnum_select))
 		{
 			partition_2(b, b[0]->pnum, pnum);
-			pivotpush_a(a, b, inst, pnum_largest(a, b));
+			pivotpush_a(a, b, inst, pnum_selector(a, b));
 		}
+		else if (p_size(b, b[0]->pnum) <= 24 && p_size(b, pnum_select))
+			insert_a(a, b, inst);
 	}
 }

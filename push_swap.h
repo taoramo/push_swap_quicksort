@@ -14,15 +14,14 @@
 # define PUSH_SWAP_H
 # include "libft.h"
 # include "ft_printf.h"
+# include "get_next_line.h"
 
 typedef struct s_stack {
 	int	n;
 	int	pnum;
-	int	psize;
-	int	size;
-	int	pivot;
 }	t_stack;
 int		pnum_min_x(t_stack **x, int pnum);
+int		pnum_max_x(t_stack **x, int pnum);
 int		pnum_median_x(t_stack **x, int pnum);
 int		pnum_median(t_stack **a, t_stack **b, int pnum);
 int		find_largest(t_stack **a);
@@ -32,7 +31,7 @@ void	reset_rotation_b_phaseone(t_stack **a,
 			t_stack **b, char **inst, int *pnum);
 void	phase_one(t_stack **a, t_stack **b, char **inst);
 void	phase_two(t_stack **a, t_stack **b, char **inst, int *pnum);
-t_stack	**make_array(int argc, char **argv);
+t_stack	**make_array(int argc, char **argv, int flag);
 void	free_everything(t_stack **a, t_stack **b, char **inst);
 int		is_sorted(t_stack **a);
 int		arrsize(t_stack **a);
@@ -52,6 +51,36 @@ void	set_three_pnum(t_stack **a);
 void	sort_three(t_stack **a, t_stack **b, char **inst, int pnum);
 void	sort_three_a(t_stack **a, t_stack **b, char **inst);
 void	sort_three_b(t_stack **a, t_stack **b, char **inst);
+void	sort_last_three_a(t_stack **a, t_stack **b, char **inst);
 int		p_size(t_stack **a, int pnum);
 void	small_arrays(t_stack **a, t_stack **b, char **argv, int pnum);
+int		*dup_arr_a(t_stack **a, t_stack **b, char **inst);
+int		*dup_arr_b(t_stack **a, t_stack **b, char **inst);
+int		arr_find_largest(int *arr, int size);
+int		arr_find_smallest(int *arr, int size);
+int		rotate_arr(int *arr, int size);
+int		distance_a(int *dup, int size, int n);
+int		distance_b(int *dup, int size, int n);
+void	find_place_a(t_stack **a, t_stack **b, int n, char **inst);
+void	find_place_b(t_stack **a, t_stack **b, t_stack *n, char **inst);
+void	reset_place_b(t_stack **a, t_stack **b, int pnum, char **inst);
+int		pnum_selector(t_stack **a, t_stack **b);
+void	insert_a(t_stack **a, t_stack **b, char **inst);
+void	insert_b(t_stack **a, t_stack **b, char **inst, int *pnum);
+int		check_ints(int argc, char **argv);
+int		check_mult_str(int argc, char **argv);
+int		check_single_str(int argc, char **argv);
+int		check_input(int argc, char **argv);
+void	partition_init2(t_stack **a, int pnum);
+void	partition_init4(t_stack **a, int pnum);
+void	partition_init6(t_stack **a, int pnum);
+int		free_split(char **split);
+int		check_duplicates(int *arr, int size);
+void	pivotpush_a(t_stack **a, t_stack **b, char **inst, int pnum);
+void	pivotpush_b(t_stack **a, t_stack **b, char **inst, int pnum);
+int		partition_threes(t_stack **a);
+void	sort_last_three_a(t_stack **a, t_stack **b, char **inst);
+void	small_n(t_stack **a, t_stack **b, char **argv);
+int		check_duplicates(int *arr, int size);
+int		ft_rank(int n, int *input, int size);
 #endif

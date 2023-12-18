@@ -1,43 +1,57 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   push_swap_utils.c                                  :+:      :+:    :+:   */
+/*   push_swap_utils2.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: toramo <toramo.student@hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/11/27 14:57:42 by toramo            #+#    #+#             */
-/*   Updated: 2023/11/27 14:57:43 by toramo           ###   ########.fr       */
+/*   Created: 2023/12/11 11:26:35 by toramo            #+#    #+#             */
+/*   Updated: 2023/12/11 11:26:36 by toramo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-int	is_sorted(t_stack **a)
+int	free_split(char **split)
 {
 	int	i;
-	int	size;
 
+	if (!split)
+		return (0);
 	i = 0;
-	size = arrsize(a);
-	while (i <= size - 2)
+	while (split[i])
 	{
-		if (a[i]->n > a[i + 1]->n)
-			return (0);
+		free(split[i]);
 		i++;
 	}
-	return (1);
+	free(split);
+	return (0);
 }
 
-void	add_instruction(t_stack **a, t_stack **b, char *str, char **inst)
+void	free_everything(t_stack **a, t_stack **b, char **inst)
 {
 	int	i;
 
 	i = 0;
-	if (!inst)
-		return ;
-	while (inst[i])
-		i++;
-	inst[i] = ft_strdup(str);
-	if (!inst[i])
-		free_everything(a, b, inst);
+	if (a)
+	{
+		while (a[i])
+			free(a[i++]);
+		free(a);
+	}
+	i = 0;
+	if (b)
+	{
+		while (b[i] && b)
+			free(b[i++]);
+		free(b);
+	}
+	i = 0;
+	if (inst)
+	{
+		while (inst[i])
+			free(inst[i++]);
+		free(inst);
+	}
+	exit(0);
 }

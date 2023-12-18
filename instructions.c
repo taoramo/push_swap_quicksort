@@ -39,7 +39,8 @@ void	rotate_a(t_stack **a, t_stack **b, char **inst, int times)
 			i++;
 		}
 		a[size - 1] = temp;
-		add_instruction(a, b, "ra", inst);
+		if (arrsize(a) > 1)
+			add_instruction(a, b, "ra", inst);
 		times--;
 	}
 }
@@ -61,7 +62,8 @@ void	rotate_b(t_stack **a, t_stack **b, char **inst, int times)
 			i++;
 		}
 		b[size - 1] = temp;
-		add_instruction(a, b, "rb", inst);
+		if (arrsize(b) > 1)
+			add_instruction(a, b, "rb", inst);
 		times--;
 	}
 }
@@ -83,7 +85,8 @@ void	rrotate_a(t_stack **a, t_stack **b, char **inst, int times)
 			i--;
 		}
 		a[0] = temp;
-		add_instruction(a, b, "rra", inst);
+		if (arrsize(a) > 1)
+			add_instruction(a, b, "rra", inst);
 		times--;
 	}
 }
@@ -105,7 +108,8 @@ void	rrotate_b(t_stack **a, t_stack **b, char **inst, int times)
 			i--;
 		}
 		b[0] = temp;
-		add_instruction(a, b, "rrb", inst);
+		if (arrsize(b) > 1)
+			add_instruction(a, b, "rrb", inst);
 		times--;
 	}
 }
